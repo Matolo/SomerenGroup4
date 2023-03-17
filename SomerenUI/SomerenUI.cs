@@ -127,14 +127,14 @@ namespace SomerenUI
             listViewStudents.Columns.Add("Activity ID");
             listViewStudents.Columns.Add("Activity Name");
             listViewStudents.Columns.Add("Date");
-          // listViewStudents.Columns.Add("Time");
+            listViewStudents.Columns.Add("Time");
 
             foreach (Activity activity in activities)
             {
                 ListViewItem item = new ListViewItem(activity.ActivityId.ToString());
                 item.SubItems.Add(activity.Type);
                 item.SubItems.Add(activity.Date.ToString("yyyy/MM/dd"));
-               //item.SubItems.Add(activity.time.ToString("HH:mm"));
+                item.SubItems.Add(activity.time.ToString());
                 item.Tag = activity;
                 listViewStudents.Items.Add(item);
             }
@@ -143,21 +143,6 @@ namespace SomerenUI
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowActivitiesPanel();
-        }
-
-        private void listViewStudents_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnlActivities_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

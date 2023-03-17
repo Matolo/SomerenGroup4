@@ -160,7 +160,6 @@
             this.listViewStudents.Size = new System.Drawing.Size(1093, 509);
             this.listViewStudents.TabIndex = 1;
             this.listViewStudents.UseCompatibleStateImageBehavior = false;
-            this.listViewStudents.SelectedIndexChanged += new System.EventHandler(this.listViewStudents_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -172,7 +171,6 @@
             this.label1.Size = new System.Drawing.Size(157, 48);
             this.label1.TabIndex = 0;
             this.label1.Text = "Students";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // SomerenUI
             // 
