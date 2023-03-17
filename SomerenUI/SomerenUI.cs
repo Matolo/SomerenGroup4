@@ -3,6 +3,7 @@ using SomerenModel;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
+using System.Linq.Expressions;
 
 namespace SomerenUI
 {
@@ -184,6 +185,7 @@ namespace SomerenUI
             listViewTeachers.Columns.Add("Phone Number");
             listViewTeachers.Columns.Add("Age");
             listViewTeachers.Columns.Add("Room ID");
+            listViewTeachers.Columns.Add("Supervisor");
 
             foreach (Teacher teacher in teachers)
             {
@@ -193,6 +195,10 @@ namespace SomerenUI
                 item.SubItems.Add(teacher.PhoneNumber.ToString());
                 item.SubItems.Add(teacher.Age.ToString());
                 item.SubItems.Add(teacher.RoomId.ToString());
+                if (teacher.isSupervisor)
+                    item.SubItems.Add("Yes");
+                else
+                    item.SubItems.Add("No");
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
