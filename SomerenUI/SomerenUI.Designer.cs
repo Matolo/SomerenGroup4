@@ -101,6 +101,7 @@
             lecturersToolStripMenuItem.Name = "lecturersToolStripMenuItem";
             lecturersToolStripMenuItem.Size = new System.Drawing.Size(98, 29);
             lecturersToolStripMenuItem.Text = "Lecturers";
+            lecturersToolStripMenuItem.Click += lecturersToolStripMenuItem_Click;
             // 
             // activitiesToolStripMenuItem
             // 
@@ -114,6 +115,7 @@
             roomsToolStripMenuItem.Name = "roomsToolStripMenuItem";
             roomsToolStripMenuItem.Size = new System.Drawing.Size(84, 29);
             roomsToolStripMenuItem.Text = "Rooms";
+            roomsToolStripMenuItem.Click += roomsToolStripMenuItem_Click;
             // 
             // pnlDashboard
             // 
@@ -138,7 +140,6 @@
             // 
             pnlStudents.Controls.Add(pictureBox1);
             pnlStudents.Controls.Add(listViewStudents);
-            pnlStudents.Controls.Add(label1);
             pnlStudents.Location = new System.Drawing.Point(17, 45);
             pnlStudents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pnlStudents.Name = "pnlStudents";
@@ -185,10 +186,10 @@
             // 
             // listViewTeachers
             // 
-            listViewTeachers.Location = new System.Drawing.Point(22, 70);
-            listViewTeachers.Margin = new System.Windows.Forms.Padding(4);
+            listViewTeachers.Location = new System.Drawing.Point(19, 52);
+            listViewTeachers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             listViewTeachers.Name = "listViewTeachers";
-            listViewTeachers.Size = new System.Drawing.Size(150, 120);
+            listViewTeachers.Size = new System.Drawing.Size(1093, 509);
             listViewTeachers.TabIndex = 3;
             listViewTeachers.UseCompatibleStateImageBehavior = false;
             // 
@@ -214,18 +215,18 @@
             // pnlRooms
             // 
             pnlRooms.Controls.Add(listViewRooms);
-            pnlRooms.Location = new System.Drawing.Point(0, 0);
-            pnlRooms.Margin = new System.Windows.Forms.Padding(4);
+            pnlRooms.Location = new System.Drawing.Point(17, 45);
+            pnlRooms.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pnlRooms.Name = "pnlRooms";
-            pnlRooms.Size = new System.Drawing.Size(250, 125);
+            pnlRooms.Size = new System.Drawing.Size(1340, 777);
             pnlRooms.TabIndex = 5;
             // 
             // listViewRooms
             // 
-            listViewRooms.Location = new System.Drawing.Point(0, 0);
-            listViewRooms.Margin = new System.Windows.Forms.Padding(4);
+            listViewRooms.Location = new System.Drawing.Point(19, 52);
+            listViewRooms.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             listViewRooms.Name = "listViewRooms";
-            listViewRooms.Size = new System.Drawing.Size(150, 120);
+            listViewRooms.Size = new System.Drawing.Size(1093, 509);
             listViewRooms.TabIndex = 5;
             listViewRooms.UseCompatibleStateImageBehavior = false;
             // 
@@ -249,10 +250,10 @@
             pnlDashboard.ResumeLayout(false);
             pnlDashboard.PerformLayout();
             pnlStudents.ResumeLayout(false);
-            pnlStudents.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             pnlTeachers.ResumeLayout(false);
             pnlActivities.ResumeLayout(false);
+            pnlActivities.PerformLayout();
             pnlRooms.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();

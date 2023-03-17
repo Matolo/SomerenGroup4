@@ -44,7 +44,7 @@ namespace SomerenUI
         private void ShowStudentsPanel()
         {
             NewTab(pnlStudents, "Students");
-            
+
 
             try
             {
@@ -154,5 +154,111 @@ namespace SomerenUI
         {
             ShowActivitiesPanel();
         }
+        private void ShowTeachersPanel()
+        {
+            NewTab(pnlTeachers, "Teachers");
+
+            try
+            {
+                // get and display all activities
+                List<Teacher> teachers = GetTeachers();
+                DisplayTeachers(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+            }
+        }
+        private List<Teacher> GetTeachers()
+        {
+            TeacherService teacherService = new TeacherService();
+            List<Teacher> teachers = teacherService.GetTeachers();
+            return teachers;
+        }
+        private void DisplayTeachers(List<Teacher> teachers)
+        {
+            // clear the listview before filling it
+            listViewTeachers.Clear();
+
+            listViewTeachers.View = View.Details;
+            listViewTeachers.Columns.Add("Lecturer ID");
+            listViewTeachers.Columns.Add("First Name");
+            listViewTeachers.Columns.Add("Last Name");
+            listViewTeachers.Columns.Add("Phone Number");
+            listViewTeachers.Columns.Add("Age");
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
+                item.SubItems.Add(teacher.FirstName);
+                item.SubItems.Add(teacher.LastName);
+                item.SubItems.Add(teacher.PhoneNumber.ToString());
+                item.SubItems.Add(teacher.Age.ToString());
+                item.Tag = teacher;
+                listViewTeachers.Items.Add(item);
+            }
+            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTeachersPanel();
+        }
+        private void ShowRoomsPanel()
+        {
+            NewTab(pnlRooms, "Rooms");
+
+            try
+            {
+                // get and display all activities
+                List<Room> rooms = GetRooms();
+                DisplayRooms(rooms);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+            }
+        }
+        private List<Room> GetRooms()
+        {
+            RoomService roomService = new RoomService();
+            List<Room> rooms = roomService.GetRooms();
+            return rooms;
+        }
+        private void DisplayRooms(List<Room> rooms)
+        {
+            // clear the listview before filling it
+            listViewRooms.Clear();
+
+            listViewRooms.View = View.Details;
+            listViewRooms.Columns.Add("Room ID");
+            listViewRooms.Columns.Add("Student Occupant");
+            listViewRooms.Columns.Add("Building");
+            listViewRooms.Columns.Add("Type");
+            listViewRooms.Columns.Add("Lecturer Occupant");
+
+            foreach (Room room in rooms)
+            {
+
+                ListViewItem item = new ListViewItem(room.RoomId.ToString());
+                if (room.StudentOccupant == 0)
+                    item.SubItems.Add("");
+                else
+                    item.SubItems.Add(room.StudentOccupant.ToString());
+                item.SubItems.Add(room.Building.ToString());
+                item.SubItems.Add(room.Type.ToString());
+                if(room.LecturerOccupant == 0)
+                    item.SubItems.Add("");
+                else
+                    item.SubItems.Add(room.LecturerOccupant.ToString());
+                item.Tag = room;
+                listViewRooms.Items.Add(item);
+            }
+            listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+        private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRoomsPanel();
+        }
     }
+
 }
