@@ -12,25 +12,39 @@ namespace SomerenUI
         {
             InitializeComponent();
         }
+        private void NewTab(Panel panel, string name)
+        {
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms })
+            {
+                p.Hide();
+            }
+            panel.Show();
+
+            label1.Show();
+            label1.Visible = true;
+            label1.AutoSize = true;
+            label1.Text = name;
+            panel.Controls.Add(label1);
+
+            /*Doesn't work for some reason - will check later
+             * pictureBox1.Show();
+            pictureBox1.Visible = true;
+            pictureBox1.AutoSize = true;
+            panel.Controls.Add(pictureBox1);*/
+
+
+        }
+
 
         private void ShowDashboardPanel()
         {
-            // hide all other panels
-            pnlStudents.Hide();
-         
-            // show dashboard
-            pnlDashboard.Show();
+            NewTab(pnlDashboard, "Dashboard");
         }
-        
-
 
         private void ShowStudentsPanel()
         {
-            // hide all other panels
-            pnlDashboard.Hide();
-
-            // show students
-            pnlStudents.Show();
+            NewTab(pnlStudents, "Students");
+            
 
             try
             {
@@ -94,12 +108,8 @@ namespace SomerenUI
         //private ListView listViewActivities;
         private void ShowActivitiesPanel()
         {
-            // hide all other panels
-            pnlDashboard.Hide();
-            pnlStudents.Hide();
-
-            // show activities
-            pnlStudents.Show();
+            NewTab(pnlActivities, "Activities");
+            label1.Text = "Activities";
 
             try
             {
@@ -121,13 +131,13 @@ namespace SomerenUI
         private void DisplayActivities(List<Activity> activities)
         {
             // clear the listview before filling it
-            listViewStudents.Clear();
+            listViewActivities.Clear();
 
-            listViewStudents.View = View.Details;
-            listViewStudents.Columns.Add("Activity ID");
-            listViewStudents.Columns.Add("Activity Name");
-            listViewStudents.Columns.Add("Date");
-            listViewStudents.Columns.Add("Time");
+            listViewActivities.View = View.Details;
+            listViewActivities.Columns.Add("Activity ID");
+            listViewActivities.Columns.Add("Activity Name");
+            listViewActivities.Columns.Add("Date");
+            listViewActivities.Columns.Add("Time");
 
             foreach (Activity activity in activities)
             {
@@ -136,9 +146,9 @@ namespace SomerenUI
                 item.SubItems.Add(activity.Date.ToString("yyyy/MM/dd"));
                 item.SubItems.Add(activity.time.ToString());
                 item.Tag = activity;
-                listViewStudents.Items.Add(item);
+                listViewActivities.Items.Add(item);
             }
-            listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
