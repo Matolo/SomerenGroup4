@@ -12,25 +12,37 @@ namespace SomerenUI
         {
             InitializeComponent();
         }
+        private void NewTab(Panel panel, string name)
+        {
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms })
+            {
+                p.Hide();
+            }
+            panel.Show();
+
+            label1.Show();
+            label1.Visible = true;
+            label1.AutoSize = true;
+            label1.Text = name;
+            panel.Controls.Add(label1);
+
+            //Doesn't work for some reason - will check later
+            /*pictureBox1.Show();
+            pictureBox1.Visible = true;
+            pictureBox1.AutoSize = true;
+            panel.Controls.Add(pictureBox1);*/
+        }
+
 
         private void ShowDashboardPanel()
         {
-            // hide all other panels
-            pnlStudents.Hide();
-         
-            // show dashboard
-            pnlDashboard.Show();
+            NewTab(pnlDashboard, "Dashboard");
         }
-        
-
 
         private void ShowStudentsPanel()
         {
-            // hide all other panels
-            pnlDashboard.Hide();
+            NewTab(pnlStudents, "Students");
 
-            // show students
-            pnlStudents.Show();
 
             try
             {
@@ -61,6 +73,7 @@ namespace SomerenUI
             listViewStudents.Columns.Add("First Name");
             listViewStudents.Columns.Add("Last Name");
             listViewStudents.Columns.Add("Phone Number");
+            listViewStudents.Columns.Add("RoomId");
 
             foreach (Student student in students)
             {
@@ -69,6 +82,7 @@ namespace SomerenUI
                 item.SubItems.Add(student.FirstName);
                 item.SubItems.Add(student.LastName);
                 item.SubItems.Add(student.PhoneNumber);
+                item.SubItems.Add(student.RoomId.ToString());
                 item.Tag = student;
                 listViewStudents.Items.Add(item);
             }
@@ -89,17 +103,10 @@ namespace SomerenUI
         {
             ShowStudentsPanel();
         }
-
-        //Activity Part!!!
-        //private ListView listViewActivities;
         private void ShowActivitiesPanel()
         {
-            // hide all other panels
-            pnlDashboard.Hide();
-            pnlStudents.Hide();
-
-            // show activities
-            pnlStudents.Show();
+            NewTab(pnlActivities, "Activities");
+            label1.Text = "Activities";
 
             try
             {
@@ -121,13 +128,13 @@ namespace SomerenUI
         private void DisplayActivities(List<Activity> activities)
         {
             // clear the listview before filling it
-            listViewStudents.Clear();
+            listViewActivities.Clear();
 
-            listViewStudents.View = View.Details;
-            listViewStudents.Columns.Add("Activity ID");
-            listViewStudents.Columns.Add("Activity Name");
-            listViewStudents.Columns.Add("Date");
-            listViewStudents.Columns.Add("Time");
+            listViewActivities.View = View.Details;
+            listViewActivities.Columns.Add("Activity ID");
+            listViewActivities.Columns.Add("Activity Name");
+            listViewActivities.Columns.Add("Date");
+            listViewActivities.Columns.Add("Time");
 
             foreach (Activity activity in activities)
             {
@@ -136,13 +143,112 @@ namespace SomerenUI
                 item.SubItems.Add(activity.Date.ToString("yyyy/MM/dd"));
                 item.SubItems.Add(activity.time.ToString());
                 item.Tag = activity;
-                listViewStudents.Items.Add(item);
+                listViewActivities.Items.Add(item);
             }
-            listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowActivitiesPanel();
         }
+        private void ShowTeachersPanel()
+        {
+            NewTab(pnlTeachers, "Teachers");
+
+            try
+            {
+                // get and display all teachers
+                List<Teacher> teachers = GetTeachers();
+                DisplayTeachers(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+            }
+        }
+        private List<Teacher> GetTeachers()
+        {
+            TeacherService teacherService = new TeacherService();
+            List<Teacher> teachers = teacherService.GetTeachers();
+            return teachers;
+        }
+        private void DisplayTeachers(List<Teacher> teachers)
+        {
+            // clear the listview before filling it
+            listViewTeachers.Clear();
+
+            listViewTeachers.View = View.Details;
+            listViewTeachers.Columns.Add("Lecturer ID");
+            listViewTeachers.Columns.Add("First Name");
+            listViewTeachers.Columns.Add("Last Name");
+            listViewTeachers.Columns.Add("Phone Number");
+            listViewTeachers.Columns.Add("Age");
+            listViewTeachers.Columns.Add("Room ID");
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
+                item.SubItems.Add(teacher.FirstName);
+                item.SubItems.Add(teacher.LastName);
+                item.SubItems.Add(teacher.PhoneNumber.ToString());
+                item.SubItems.Add(teacher.Age.ToString());
+                item.SubItems.Add(teacher.RoomId.ToString());
+                item.Tag = teacher;
+                listViewTeachers.Items.Add(item);
+            }
+            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTeachersPanel();
+        }
+        private void ShowRoomsPanel()
+        {
+            NewTab(pnlRooms, "Rooms");
+
+            try
+            {
+                // get and display all rooms
+                List<Room> rooms = GetRooms();
+                DisplayRooms(rooms);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+            }
+        }
+        private List<Room> GetRooms()
+        {
+            RoomService roomService = new RoomService();
+            List<Room> rooms = roomService.GetRooms();
+            return rooms;
+        }
+        private void DisplayRooms(List<Room> rooms)
+        {
+            // clear the listview before filling it
+            listViewRooms.Clear();
+
+            listViewRooms.View = View.Details;
+            listViewRooms.Columns.Add("Room ID");
+            listViewRooms.Columns.Add("Building");
+            listViewRooms.Columns.Add("Type");
+            listViewRooms.Columns.Add("Number of Beds");
+
+            foreach (Room room in rooms)
+            {
+                ListViewItem item = new ListViewItem(room.RoomId.ToString());
+                item.SubItems.Add(room.Building);
+                item.SubItems.Add(room.Type);
+                item.SubItems.Add(room.BedsNumber.ToString());
+                item.Tag = room;
+                listViewRooms.Items.Add(item);
+            }
+            listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+        private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowRoomsPanel();
+        }
     }
+
 }
