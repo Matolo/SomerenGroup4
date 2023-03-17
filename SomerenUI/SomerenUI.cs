@@ -26,13 +26,11 @@ namespace SomerenUI
             label1.Text = name;
             panel.Controls.Add(label1);
 
-            /*Doesn't work for some reason - will check later
-             * pictureBox1.Show();
+            //Doesn't work for some reason - will check later
+            /*pictureBox1.Show();
             pictureBox1.Visible = true;
             pictureBox1.AutoSize = true;
             panel.Controls.Add(pictureBox1);*/
-
-
         }
 
 
@@ -75,6 +73,7 @@ namespace SomerenUI
             listViewStudents.Columns.Add("First Name");
             listViewStudents.Columns.Add("Last Name");
             listViewStudents.Columns.Add("Phone Number");
+            listViewStudents.Columns.Add("RoomId");
 
             foreach (Student student in students)
             {
@@ -83,6 +82,7 @@ namespace SomerenUI
                 item.SubItems.Add(student.FirstName);
                 item.SubItems.Add(student.LastName);
                 item.SubItems.Add(student.PhoneNumber);
+                item.SubItems.Add(student.RoomId.ToString());
                 item.Tag = student;
                 listViewStudents.Items.Add(item);
             }
@@ -103,9 +103,6 @@ namespace SomerenUI
         {
             ShowStudentsPanel();
         }
-
-        //Activity Part!!!
-        //private ListView listViewActivities;
         private void ShowActivitiesPanel()
         {
             NewTab(pnlActivities, "Activities");
@@ -160,7 +157,7 @@ namespace SomerenUI
 
             try
             {
-                // get and display all activities
+                // get and display all teachers
                 List<Teacher> teachers = GetTeachers();
                 DisplayTeachers(teachers);
             }
@@ -186,6 +183,7 @@ namespace SomerenUI
             listViewTeachers.Columns.Add("Last Name");
             listViewTeachers.Columns.Add("Phone Number");
             listViewTeachers.Columns.Add("Age");
+            listViewTeachers.Columns.Add("Room ID");
 
             foreach (Teacher teacher in teachers)
             {
@@ -194,6 +192,7 @@ namespace SomerenUI
                 item.SubItems.Add(teacher.LastName);
                 item.SubItems.Add(teacher.PhoneNumber.ToString());
                 item.SubItems.Add(teacher.Age.ToString());
+                item.SubItems.Add(teacher.RoomId.ToString());
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
@@ -209,7 +208,7 @@ namespace SomerenUI
 
             try
             {
-                // get and display all activities
+                // get and display all rooms
                 List<Room> rooms = GetRooms();
                 DisplayRooms(rooms);
             }
@@ -231,25 +230,16 @@ namespace SomerenUI
 
             listViewRooms.View = View.Details;
             listViewRooms.Columns.Add("Room ID");
-            listViewRooms.Columns.Add("Student Occupant");
             listViewRooms.Columns.Add("Building");
             listViewRooms.Columns.Add("Type");
-            listViewRooms.Columns.Add("Lecturer Occupant");
+            listViewRooms.Columns.Add("Number of Beds");
 
             foreach (Room room in rooms)
             {
-
                 ListViewItem item = new ListViewItem(room.RoomId.ToString());
-                if (room.StudentOccupant == 0)
-                    item.SubItems.Add("");
-                else
-                    item.SubItems.Add(room.StudentOccupant.ToString());
-                item.SubItems.Add(room.Building.ToString());
-                item.SubItems.Add(room.Type.ToString());
-                if(room.LecturerOccupant == 0)
-                    item.SubItems.Add("");
-                else
-                    item.SubItems.Add(room.LecturerOccupant.ToString());
+                item.SubItems.Add(room.Building);
+                item.SubItems.Add(room.Type);
+                item.SubItems.Add(room.BedsNumber.ToString());
                 item.Tag = room;
                 listViewRooms.Items.Add(item);
             }
