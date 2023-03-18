@@ -88,6 +88,8 @@ namespace SomerenUI
                 listViewStudents.Items.Add(item);
             }
             listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            
         }
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
@@ -146,7 +148,9 @@ namespace SomerenUI
                 item.Tag = activity;
                 listViewActivities.Items.Add(item);
             }
-            listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+           // listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -202,7 +206,9 @@ namespace SomerenUI
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
-            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            //listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
         private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -249,7 +255,9 @@ namespace SomerenUI
                 item.Tag = room;
                 listViewRooms.Items.Add(item);
             }
-            listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+           // listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
         }
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
