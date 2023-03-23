@@ -15,7 +15,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlDrinks })
             {
                 p.Hide();
             }
@@ -263,6 +263,93 @@ namespace SomerenUI
         {
             ShowRoomsPanel();
         }
+
+        private void cashRegisterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowDrinksPanel();
+        }
+        private void ShowDrinksPanel()
+        {
+            NewTab(pnlDrinks, "Drinks");
+
+            try
+            {
+                // get and display all rooms
+                List<Drink> drinks = GetDrinks();
+                DisplayDrinks(drinks);
+                DisplayStudent(GetStudent());
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the drinks: " + e.Message);
+            }
+        }
+        private List<Drink> GetDrinks()
+        {
+            DrinksService drinkService = new DrinksService();
+            List<Drink> drinks = drinkService.GetDrinks();
+            return drinks;
+        }
+        private void DisplayDrinks(List<Drink> drinks)
+        {
+            // clear the listview before filling it
+            listViewDrinks.Clear();
+
+            listViewDrinks.View = View.Details;
+            listViewDrinks.Columns.Add("Drink ID");
+            listViewDrinks.Columns.Add("Drink Name");
+            listViewDrinks.Columns.Add("Price");
+            listViewDrinks.Columns.Add("Alchol");
+            listViewDrinks.Columns.Add("Stock");
+
+            foreach (Drink drink in drinks)
+            {
+                ListViewItem item = new ListViewItem(drink.DrinkId.ToString());
+                item.SubItems.Add(drink.DrinkName);
+                item.SubItems.Add(drink.Price.ToString());
+                if (drink.Is_Alchol)
+                    item.SubItems.Add("Yes");
+                else
+                    item.SubItems.Add("No");
+                item.SubItems.Add(drink.Stock.ToString());
+                item.Tag = drink;
+                listViewDrinks.Items.Add(item);
+
+            }
+            listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewDrinks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+        private List<Student> GetStudent()
+        {
+            StudentService studentService = new StudentService();
+            List<Student> students = studentService.GetStudents();
+            return students;
+        }
+
+        private void DisplayStudent(List<Student> students)
+        {
+
+            foreach (Student student in students)
+            {
+               cmbStudents.Items.Add(student.FirstName);  
+            }
+            cmbStudents.SelectedIndex = 0;
+            listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+
+        private void cmbStudents_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Student student = (Student)cmbStudents.SelectedItem;
+        }
+
+        private void listViewDrinks_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        //    Drink drink = (Drink)listViewDrinks.SelectedItem;
+        }
+
+        // private void drinksToolStripMenuItem_Click(object sender, EventArgs e)
+
     }
 
 }
