@@ -15,7 +15,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat })
             {
                 p.Hide();
             }
@@ -27,11 +27,10 @@ namespace SomerenUI
             label1.Text = name;
             panel.Controls.Add(label1);
 
-            //Doesn't work for some reason - will check later
-            /*pictureBox1.Show();
+            pictureBox1.Show();
             pictureBox1.Visible = true;
             pictureBox1.AutoSize = true;
-            panel.Controls.Add(pictureBox1);*/
+            panel.Controls.Add(pictureBox1);
         }
 
 
@@ -89,7 +88,7 @@ namespace SomerenUI
             }
             listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            
+
         }
 
         private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
@@ -109,7 +108,6 @@ namespace SomerenUI
         private void ShowActivitiesPanel()
         {
             NewTab(pnlActivities, "Activities");
-            label1.Text = "Activities";
 
             try
             {
@@ -148,7 +146,7 @@ namespace SomerenUI
                 item.Tag = activity;
                 listViewActivities.Items.Add(item);
             }
-           // listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            // listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
@@ -255,13 +253,22 @@ namespace SomerenUI
                 item.Tag = room;
                 listViewRooms.Items.Add(item);
             }
-           // listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            // listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
         private void roomsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRoomsPanel();
+        }
+
+        private void vatStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowVatPanel();
+        }
+        private void ShowVatPanel()
+        {
+           NewTab(pnlVat, "VAT");
         }
     }
 
