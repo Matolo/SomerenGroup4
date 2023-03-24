@@ -9,6 +9,8 @@ namespace SomerenDAL
 {
     public class CashRegisterDao : BaseDao
     {
+       
+
         public void RegisterCheckOut(Student student, Drink drink, DateTime time)
         {
 

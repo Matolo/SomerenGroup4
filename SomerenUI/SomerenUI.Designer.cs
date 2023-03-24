@@ -344,7 +344,6 @@ namespace SomerenUI
             // 
             // cbSelectQuarter
             // 
-            
             cbSelectQuarter.FormattingEnabled = true;
             cbSelectQuarter.Items.AddRange(new object[] { "Q1", "Q2", "Q3", "Q4" });
             cbSelectQuarter.Location = new System.Drawing.Point(583, 130);

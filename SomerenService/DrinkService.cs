@@ -34,5 +34,10 @@ namespace SomerenService
         {
             drinkdb.UpdateDrink(drink);
         }
+        public List<Drink> GetSoldDrinks(DateTime start, DateTime end)
+        {
+            List<Drink> drinks = drinkdb.GetSoldDrinks(start, end);
+            return drinks;
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace SomerenDAL
     {
         public List<Drink> GetAllDrinks()
         {
-            string query = "SELECT * FROM Drink ORDER BY DrinkName";
+            string query = "SELECT * FROM Drink AS D ORDER BY DrinkName";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -58,6 +58,14 @@ namespace SomerenDAL
             string query = $"UPDATE Drink SET DrinkName = '{drink.DrinkName}', Price = {drink.Price}, Is_Alcohol = '{drink.IsAlcoholic}', Stock = {drink.Stock} WHERE DrinkId = {drink.DrinkId}";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             ExecuteEditQuery(query, sqlParameters);
+        }
+        public List<Drink> GetSoldDrinks(DateTime start, DateTime end)
+        {
+            string query = $"SELECT D.DrinkId, D.DrinkName, D.Price, D.Is_Alcohol, D.Stock, D.TimesSold" +
+                $" FROM CashRegister1 as CR JOIN Drink as D ON CR.DrinkId = D.DrinkId" +
+                $" WHERE [Date] >= '{start:yyyy-MM-dd}' AND [Date] <= '{end:yyyy-MM-dd}'";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
     }
 }

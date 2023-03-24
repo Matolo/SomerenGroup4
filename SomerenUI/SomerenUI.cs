@@ -262,12 +262,14 @@ namespace SomerenUI
         {
             ShowRoomsPanel();
         }
+        
         private void ShowVatPanel()
         {
             NewTab(pnlVat, "VAT");
 
             CashRegisterService cashRegisterService = new CashRegisterService();
             cbSelectYear.DataSource = cashRegisterService.GetYears(); 
+
         }
 
         private void vatCalculationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -545,6 +547,32 @@ namespace SomerenUI
         }
         private void BtnCalculateVat_Click(object sender, EventArgs e)
         {
+            float highVAT = 0f;
+            float lowVAT = 0f;
+            float totalVAT;
+
+            DrinkService drinkService = new DrinkService();
+
+            int year = int.Parse(cbSelectYear.SelectedItem.ToString());
+            int quarter = cbSelectQuarter.SelectedIndex + 1;
+
+
+            DateTime start = new DateTime(year, 3 * (quarter - 1) + 1, 1);
+            DateTime end = start.AddMonths(3).AddDays(-1);
+
+            List<Drink> soldDrinks = drinkService.GetSoldDrinks(start, end);
+
+            foreach(Drink drink in soldDrinks)
+            {
+                if (drink.IsAlcoholic)
+                    highVAT += (float)drink.Price * 0.21f;
+                else
+                    lowVAT += (float)drink.Price * 0.06f;
+            }
+            lblVatQuarterRuns.Text = $"Quarter runs from: {start:dd-MM-yyyy} to: {end:dd-MM-yyyy}";
+            lblVatTotalVATHigh.Text = $"Total VAT (high tariff, 21%) amount payable: {highVAT:C}";
+            lblVatTotalVATLow.Text = $"Total VAT (low tariff, 6%) amount payable: {lowVAT:C}";
+            lblVatTotalVAT.Text = $"Total VAT amount payable: {(highVAT + lowVAT):C}";
 
         }
 
