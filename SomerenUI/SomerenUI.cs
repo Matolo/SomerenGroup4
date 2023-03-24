@@ -495,7 +495,7 @@ namespace SomerenUI
             Student selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
             Drink selectedDrink = selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
 
-            cashRegisterService.RegisterCheckOut(selectedStudent, selectedDrink, time.ToString());
+            cashRegisterService.RegisterCheckOut(selectedStudent, selectedDrink, time);
             ShowCashRegisterPanel();
 
         }

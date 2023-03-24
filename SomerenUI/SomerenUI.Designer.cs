@@ -330,7 +330,7 @@
             // cbSelectYear
             // 
             cbSelectYear.FormattingEnabled = true;
-            cbSelectYear.Location = new System.Drawing.Point(583, 152);
+            cbSelectYear.Location = new System.Drawing.Point(583, 100);
             cbSelectYear.Name = "cbSelectYear";
             cbSelectYear.Size = new System.Drawing.Size(182, 33);
             cbSelectYear.TabIndex = 3;
@@ -338,7 +338,7 @@
             // cbSelectQuarter
             // 
             cbSelectQuarter.FormattingEnabled = true;
-            cbSelectQuarter.Location = new System.Drawing.Point(583, 209);
+            cbSelectQuarter.Location = new System.Drawing.Point(583, 130);
             cbSelectQuarter.Name = "cbSelectQuarter";
             cbSelectQuarter.Size = new System.Drawing.Size(182, 33);
             cbSelectQuarter.TabIndex = 4;

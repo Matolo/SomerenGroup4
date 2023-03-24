@@ -13,7 +13,7 @@ namespace SomerenService
         {
             cashRegisterdb = new CashRegisterDao();
         }
-        public void RegisterCheckOut(Student student, Drink drink, string time) 
+        public void RegisterCheckOut(Student student, Drink drink, DateTime time) 
         { 
             cashRegisterdb.RegisterCheckOut(student, drink, time);
         }
