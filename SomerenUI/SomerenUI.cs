@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Collections.Generic;
 using System;
 using System.Linq.Expressions;
+using SomerenDAL;
 
 namespace SomerenUI
 {
@@ -15,7 +16,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister })
             {
                 p.Hide();
             }
@@ -408,6 +409,138 @@ namespace SomerenUI
             drinkService.UpdateDrink(drink);
             DisplayDrinks(drinkService.GetDrinks());
         }
+
+        public void ShowCashRegisterPanel()
+        {
+            NewTab(pnlCashRegister, "Cash Register");
+
+            try
+            {
+                // get and display all students and drinks
+                List<Student> students = GetStudents();
+                List<Drink> drinks = GetDrinks();
+                DisplaySimpleStudents(students);
+                DisplaySimpleDrinks(drinks);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+            }
+        }
+
+        private void DisplaySimpleStudents(List<Student> students)
+        {
+
+
+            // clear the listview before filling it
+            listViewStudentSimple.Clear();
+
+            listViewStudentSimple.View = View.Details;
+            listViewStudentSimple.Columns.Add("Student ID");
+            listViewStudentSimple.Columns.Add("Last Name");
+
+            foreach (Student student in students)
+            {
+
+                ListViewItem item = new ListViewItem(student.StudentId.ToString());
+                item.SubItems.Add(student.LastName);
+
+                item.Tag = student;
+                listViewStudentSimple.Items.Add(item);
+            }
+            //listViewStudents.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewStudentSimple.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
+        private void DisplaySimpleDrinks(List<Drink> drinks)
+        {
+
+            listViewDrinksSimple.Clear();
+
+            listViewDrinksSimple.View = View.Details;
+            listViewDrinksSimple.Columns.Add("Drink ID");
+            listViewDrinksSimple.Columns.Add("Drink Name");
+            listViewDrinksSimple.Columns.Add("Price");
+            listViewDrinksSimple.Columns.Add("Is Alcoholic");
+            listViewDrinksSimple.Columns.Add("Stock");
+
+            foreach (Drink drink in drinks)
+            {
+                ListViewItem item = new ListViewItem(drink.DrinkId.ToString());
+                item.SubItems.Add(drink.DrinkName);
+                item.SubItems.Add(drink.Price.ToString());
+                if (drink.IsAlcoholic)
+                    item.SubItems.Add("Yes");
+                else
+                    item.SubItems.Add("No");
+                item.SubItems.Add(drink.Stock.ToString());
+                item.SubItems.Add(drink.TimesSold.ToString());
+                item.Tag = drink;
+                listViewDrinksSimple.Items.Add(item);
+            }
+            // listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewDrinksSimple.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
+        private void cashRegisterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowCashRegisterPanel();
+        }
+        private void BtnCheckOut_Click(object sender, System.EventArgs e)
+        {
+            CashRegisterService cashRegisterService = new CashRegisterService();
+
+            DateTime time = DateTime.Now;
+
+            Student selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
+            Drink selectedDrink = selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink; ;
+            cashRegisterService.RegisterCheckOut(selectedStudent, selectedDrink, time);
+
+        }
+        private void ListViewDrinksSimple_Click(object sender, System.EventArgs e)
+        {
+            Student selectedStudent;
+            Drink selectedDrink;
+            if (listViewDrinksSimple.SelectedItems.Count >= 1 && listViewStudentSimple.SelectedItems.Count >= 1)
+            {
+                selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
+                selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
+            }
+            else
+                return;
+
+            CalculatePrice(selectedStudent, selectedDrink);
+
+        }
+        private void ListViewStudentSimple_Click(object sender, System.EventArgs e)
+        {
+            Student selectedStudent;
+            Drink selectedDrink;
+            if (listViewDrinksSimple.SelectedItems.Count >= 1 && listViewStudentSimple.SelectedItems.Count >= 1)
+            {
+                 selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
+                 selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
+            }
+            else
+                return;
+
+            CalculatePrice(selectedStudent, selectedDrink);
+
+        }
+        public void CalculatePrice(Student student, Drink drink)
+        {
+
+
+
+            float priceToPay = float.Parse(drink.Price.ToString());
+            if (drink.IsAlcoholic)
+                priceToPay *= 1.21f;
+            else
+                priceToPay *= 1.06f;
+
+            lblAmountToPay.Text = $"Amount to be paid: {priceToPay}";
+        }
+
     }
 
 }

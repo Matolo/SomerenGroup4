@@ -62,14 +62,19 @@
             tbPrice = new System.Windows.Forms.TextBox();
             tbIsAlcohol = new System.Windows.Forms.TextBox();
             tbStock = new System.Windows.Forms.TextBox();
+            btnUpdateDrink = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachers = new System.Windows.Forms.ListView();
             pnlActivities = new System.Windows.Forms.Panel();
             listViewActivities = new System.Windows.Forms.ListView();
+            listViewStudentSimple = new System.Windows.Forms.ListView();
+            listViewDrinksSimple = new System.Windows.Forms.ListView();
             pnlRooms = new System.Windows.Forms.Panel();
             listViewRooms = new System.Windows.Forms.ListView();
-            btnUpdateDrink = new System.Windows.Forms.Button();
+            pnlCashRegister = new System.Windows.Forms.Panel();
+            btnCheckOut = new System.Windows.Forms.Button();
+            lblAmountToPay = new System.Windows.Forms.Label();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -79,6 +84,7 @@
             pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
+            pnlCashRegister.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -160,6 +166,7 @@
             cashRegisterToolStripMenuItem.Name = "cashRegisterToolStripMenuItem";
             cashRegisterToolStripMenuItem.Size = new System.Drawing.Size(238, 34);
             cashRegisterToolStripMenuItem.Text = "Cash Register";
+            cashRegisterToolStripMenuItem.Click += cashRegisterToolStripMenuItem_Click;
             // 
             // revenueReportToolStripMenuItem
             // 
@@ -385,6 +392,16 @@
             tbStock.Size = new System.Drawing.Size(150, 31);
             tbStock.TabIndex = 6;
             // 
+            // btnUpdateDrink
+            // 
+            btnUpdateDrink.Location = new System.Drawing.Point(650, 650);
+            btnUpdateDrink.Name = "btnUpdateDrink";
+            btnUpdateDrink.Size = new System.Drawing.Size(112, 34);
+            btnUpdateDrink.TabIndex = 10;
+            btnUpdateDrink.Text = "Update Drink";
+            btnUpdateDrink.UseVisualStyleBackColor = true;
+            btnUpdateDrink.Click += btnUpdateDrink_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -433,6 +450,28 @@
             listViewActivities.TabIndex = 4;
             listViewActivities.UseCompatibleStateImageBehavior = false;
             // 
+            // listViewStudentSimple
+            // 
+            listViewStudentSimple.FullRowSelect = true;
+            listViewStudentSimple.Location = new System.Drawing.Point(19, 52);
+            listViewStudentSimple.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewStudentSimple.Name = "listViewStudentSimple";
+            listViewStudentSimple.Size = new System.Drawing.Size(1093, 250);
+            listViewStudentSimple.TabIndex = 4;
+            listViewStudentSimple.UseCompatibleStateImageBehavior = false;
+            listViewStudentSimple.Click += ListViewStudentSimple_Click;
+            // 
+            // listViewDrinksSimple
+            // 
+            listViewDrinksSimple.FullRowSelect = true;
+            listViewDrinksSimple.Location = new System.Drawing.Point(19, 300);
+            listViewDrinksSimple.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewDrinksSimple.Name = "listViewDrinksSimple";
+            listViewDrinksSimple.Size = new System.Drawing.Size(1093, 250);
+            listViewDrinksSimple.TabIndex = 4;
+            listViewDrinksSimple.UseCompatibleStateImageBehavior = false;
+            listViewDrinksSimple.Click += ListViewDrinksSimple_Click;
+            // 
             // pnlRooms
             // 
             pnlRooms.Controls.Add(listViewRooms);
@@ -451,15 +490,36 @@
             listViewRooms.TabIndex = 5;
             listViewRooms.UseCompatibleStateImageBehavior = false;
             // 
-            // btnUpdateDrink
+            // pnlCashRegister
             // 
-            btnUpdateDrink.Location = new System.Drawing.Point(650, 650);
-            btnUpdateDrink.Name = "btnUpdateDrink";
-            btnUpdateDrink.Size = new System.Drawing.Size(112, 34);
-            btnUpdateDrink.TabIndex = 10;
-            btnUpdateDrink.Text = "Update Drink";
-            btnUpdateDrink.UseVisualStyleBackColor = true;
-            btnUpdateDrink.Click += btnUpdateDrink_Click;
+            pnlCashRegister.Controls.Add(listViewStudentSimple);
+            pnlCashRegister.Controls.Add(listViewDrinksSimple);
+            pnlCashRegister.Controls.Add(lblAmountToPay);
+            pnlCashRegister.Controls.Add(btnCheckOut);
+            pnlCashRegister.Location = new System.Drawing.Point(18, 45);
+            pnlCashRegister.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlCashRegister.Name = "pnlCashRegister";
+            pnlCashRegister.Size = new System.Drawing.Size(1340, 778);
+            pnlCashRegister.TabIndex = 5;
+            // 
+            // btnCheckOut
+            // 
+            btnCheckOut.Location = new System.Drawing.Point(456, 579);
+            btnCheckOut.Name = "btnCheckOut";
+            btnCheckOut.Size = new System.Drawing.Size(112, 34);
+            btnCheckOut.TabIndex = 3;
+            btnCheckOut.Text = "Checkout";
+            btnCheckOut.UseVisualStyleBackColor = true;
+            btnCheckOut.Click += BtnCheckOut_Click;
+            // 
+            // lblAmountToPay
+            // 
+            lblAmountToPay.AutoSize = true;
+            lblAmountToPay.Location = new System.Drawing.Point(145, 636);
+            lblAmountToPay.Name = "lblAmountToPay";
+            lblAmountToPay.Size = new System.Drawing.Size(59, 25);
+            lblAmountToPay.TabIndex = 4;
+            lblAmountToPay.Text = "Amount to be paid: ";
             // 
             // SomerenUI
             // 
@@ -474,6 +534,7 @@
             Controls.Add(pnlTeachers);
             Controls.Add(pnlActivities);
             Controls.Add(pnlRooms);
+            Controls.Add(pnlCashRegister);
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "SomerenUI";
@@ -492,6 +553,8 @@
             pnlActivities.ResumeLayout(false);
             pnlActivities.PerformLayout();
             pnlRooms.ResumeLayout(false);
+            pnlCashRegister.ResumeLayout(false);
+            pnlCashRegister.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -520,10 +583,13 @@
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.Panel pnlRooms;
+        private System.Windows.Forms.Panel pnlCashRegister;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListView listViewStudents;
         private System.Windows.Forms.ListView listViewTeachers;
         private System.Windows.Forms.ListView listViewActivities;
+        private System.Windows.Forms.ListView listViewStudentSimple;
+        private System.Windows.Forms.ListView listViewDrinksSimple;
         private System.Windows.Forms.ListView listViewRooms;
         private System.Windows.Forms.ListView listViewDrinks;
         private System.Windows.Forms.Label label1;
@@ -540,5 +606,7 @@
         private System.Windows.Forms.TextBox tbDrinkName;
         private System.Windows.Forms.TextBox tbDrinkId;
         private System.Windows.Forms.Button btnUpdateDrink;
+        private System.Windows.Forms.Label lblAmountToPay;
+        private System.Windows.Forms.Button btnCheckOut;
     }
 }
