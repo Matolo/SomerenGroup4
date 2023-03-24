@@ -493,8 +493,10 @@ namespace SomerenUI
             DateTime time = DateTime.Now;
 
             Student selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
-            Drink selectedDrink = selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink; ;
+            Drink selectedDrink = selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
+
             cashRegisterService.RegisterCheckOut(selectedStudent, selectedDrink, time.ToString());
+            ShowCashRegisterPanel();
 
         }
         private void ListViewDrinksSimple_Click(object sender, System.EventArgs e)
