@@ -265,6 +265,9 @@ namespace SomerenUI
         private void ShowVatPanel()
         {
             NewTab(pnlVat, "VAT");
+
+            CashRegisterService cashRegisterService = new CashRegisterService();
+            cbSelectYear.DataSource = cashRegisterService.GetYears(); 
         }
 
         private void vatCalculationToolStripMenuItem_Click(object sender, EventArgs e)
@@ -539,6 +542,10 @@ namespace SomerenUI
                 priceToPay *= 1.06f;
 
             lblAmountToPay.Text = $"Amount to be paid: {priceToPay}";
+        }
+        private void BtnCalculateVat_Click(object sender, EventArgs e)
+        {
+
         }
 
     }

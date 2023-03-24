@@ -1,4 +1,9 @@
-﻿namespace SomerenUI
+﻿using Microsoft.VisualBasic;
+using SomerenDAL;
+using System;
+using System.Collections.Generic;
+
+namespace SomerenUI
 {
     partial class SomerenUI
     {
@@ -77,6 +82,7 @@
             pnlCashRegister = new System.Windows.Forms.Panel();
             lblAmountToPay = new System.Windows.Forms.Label();
             btnCheckOut = new System.Windows.Forms.Button();
+            btnCalculateVat = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -318,6 +324,7 @@
             pnlVat.Controls.Add(lblVatSelectQuarter);
             pnlVat.Controls.Add(cbSelectQuarter);
             pnlVat.Controls.Add(lblVatQuarterRuns);
+            pnlVat.Controls.Add(btnCalculateVat);
             pnlVat.Controls.Add(lblVatTotalVATLow);
             pnlVat.Controls.Add(lblVatTotalVATHigh);
             pnlVat.Controls.Add(lblVatTotalVAT);
@@ -337,7 +344,9 @@
             // 
             // cbSelectQuarter
             // 
+            
             cbSelectQuarter.FormattingEnabled = true;
+            cbSelectQuarter.Items.AddRange(new object[] { "Q1", "Q2", "Q3", "Q4" });
             cbSelectQuarter.Location = new System.Drawing.Point(583, 130);
             cbSelectQuarter.Name = "cbSelectQuarter";
             cbSelectQuarter.Size = new System.Drawing.Size(182, 33);
@@ -541,6 +550,16 @@
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
             // 
+            // btnCalculateVat
+            // 
+            btnCalculateVat.Location = new System.Drawing.Point(577, 662);
+            btnCalculateVat.Name = "btnCalculateVat";
+            btnCalculateVat.Size = new System.Drawing.Size(112, 34);
+            btnCalculateVat.TabIndex = 3;
+            btnCalculateVat.Text = "Calculate Vat";
+            btnCalculateVat.UseVisualStyleBackColor = true;
+            btnCalculateVat.Click += BtnCalculateVat_Click;
+            // 
             // SomerenUI
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
@@ -578,6 +597,7 @@
             ResumeLayout(false);
             PerformLayout();
         }
+
 
         #endregion
 
@@ -630,5 +650,6 @@
         private System.Windows.Forms.Button btnCheckOut;
         private System.Windows.Forms.ComboBox cbSelectYear;
         private System.Windows.Forms.ComboBox cbSelectQuarter;
+        private System.Windows.Forms.Button btnCalculateVat;
     }
 }

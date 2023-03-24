@@ -17,5 +17,9 @@ namespace SomerenService
         { 
             cashRegisterdb.RegisterCheckOut(student, drink, time);
         }
+        public List<int> GetYears()
+        {
+            return cashRegisterdb.GetYears();
+        }
     }
 }

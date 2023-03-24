@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using System.Data;
 using SomerenModel;
 using System;
+using System.Linq;
 
 namespace SomerenDAL
 {
@@ -20,6 +21,32 @@ namespace SomerenDAL
                 $"SELECT * FROM CashRegister1";
             SqlParameter[] sqlParameters2 = new SqlParameter[0];
             ExecuteSelectQuery(query2, sqlParameters2);
-        }  
+        }
+        public List<int> GetYears()
+        {
+            string query = "SELECT Date FROM CashRegister1";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            ReadYears(ExecuteSelectQuery(query, sqlParameters));
+            List<DateTime> years = ReadYears(ExecuteSelectQuery(query, sqlParameters));
+            List<int> convertedYears = new List<int>();
+
+
+            foreach (DateTime year in years)
+            {
+                convertedYears.Add(Convert.ToDateTime(year).Year);
+            }
+            convertedYears = convertedYears.Distinct().ToList();
+            return convertedYears;
+        }
+        private List<DateTime> ReadYears(DataTable dataTable)
+        {
+            List<DateTime> years = new List<DateTime>();
+
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                years.Add((DateTime)dr["Date"]);
+            }
+            return years;
+        }
     }
 }
