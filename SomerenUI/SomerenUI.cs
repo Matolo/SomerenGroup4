@@ -15,7 +15,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks })
             {
                 p.Hide();
             }
@@ -261,14 +261,152 @@ namespace SomerenUI
         {
             ShowRoomsPanel();
         }
+        private void ShowVatPanel()
+        {
+            NewTab(pnlVat, "VAT");
+        }
 
-        private void vatStripMenuItem_Click(object sender, EventArgs e)
+        private void vatCalculationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowVatPanel();
         }
-        private void ShowVatPanel()
+
+        private void ShowDrinksPanel()
         {
-           NewTab(pnlVat, "VAT");
+            NewTab(pnlDrinks, "Drinks");
+
+            try
+            {
+                // get and display all rooms
+                List<Drink> drinks = GetDrinks();
+                DisplayDrinks(drinks);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+            }
+        }
+        private List<Drink> GetDrinks()
+        {
+            DrinkService drinkService = new DrinkService();
+            List<Drink> drinks = drinkService.GetDrinks();
+            return drinks;
+        }
+        private void DisplayDrinks(List<Drink> drinks)
+        {
+
+
+            // clear the listview before filling it
+            listViewDrinks.Clear();
+
+            listViewDrinks.View = View.Details;
+            listViewDrinks.Columns.Add("Drink ID");
+            listViewDrinks.Columns.Add("Drink Name");
+            listViewDrinks.Columns.Add("Price");
+            listViewDrinks.Columns.Add("Is Alcoholic");
+            listViewDrinks.Columns.Add("Stock");
+            listViewDrinks.Columns.Add("Times Sold");
+
+            foreach (Drink drink in drinks)
+            {
+                ListViewItem item = new ListViewItem(drink.DrinkId.ToString());
+                item.SubItems.Add(drink.DrinkName);
+                item.SubItems.Add(drink.Price.ToString());
+                if (drink.IsAlcoholic)
+                    item.SubItems.Add("Yes");
+                else
+                    item.SubItems.Add("No");
+                if (drink.Stock < 10)
+                    item.SubItems.Add($"{drink.Stock} - Stock nearly depleted");
+                else
+                    item.SubItems.Add($"{drink.Stock} - Stock sufficient");
+                item.SubItems.Add(drink.TimesSold.ToString());
+                item.Tag = drink;
+                listViewDrinks.Items.Add(item);
+            }
+            // listViewRooms.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewDrinks.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
+
+        private void drinksSuppliesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowDrinksPanel();
+        }
+        private void BtnAddDrink_Click(object sender, System.EventArgs e)
+        {
+            bool isAlc;
+
+            if (tbIsAlcohol.Text.ToString() == "1" || tbIsAlcohol.Text.ToString().ToLower() == "true")
+                isAlc = true;
+            else
+                isAlc = false;
+
+            Drink drink = new Drink()
+            {
+                DrinkId = int.Parse(tbDrinkId.Text.ToString()),
+                DrinkName = tbDrinkName.Text.ToString(),
+                Price = int.Parse(tbPrice.Text.ToString()),
+                IsAlcoholic = isAlc,
+                Stock = int.Parse(tbStock.Text.ToString()),
+                TimesSold = 0
+            };
+
+            DrinkService drinkService = new DrinkService();
+            drinkService.AddDrink(drink);
+            DisplayDrinks(drinkService.GetDrinks());
+
+        }
+        private void BtnDeleteDrink_Click(object sender, System.EventArgs e)
+        {
+            DrinkService drinkService = new DrinkService();
+
+            if (listViewDrinks.SelectedItems.Count > 0)
+            {
+                Drink selectedItem = listViewDrinks.SelectedItems[0].Tag as Drink;
+
+                if (selectedItem.TimesSold == 0)
+                {
+                    drinkService.DeleteDrink(selectedItem.DrinkId);
+                    DisplayDrinks(drinkService.GetDrinks());
+                }
+            }
+        }
+        private void listViewDrinks_Click(object sender, EventArgs e)
+        {
+
+            Drink selectedItem = listViewDrinks.SelectedItems[0].Tag as Drink;
+
+            tbDrinkId.Text = selectedItem.DrinkId.ToString();
+            tbDrinkName.Text = selectedItem.DrinkName.ToString();
+            tbPrice.Text = selectedItem.Price.ToString();
+            tbIsAlcohol.Text = selectedItem.IsAlcoholic.ToString();
+            tbStock.Text = selectedItem.Stock.ToString();
+
+
+        }
+        private void btnUpdateDrink_Click(object sender, EventArgs e)
+        {
+            bool isAlc;
+
+            if (tbIsAlcohol.Text.ToString() == "1" || tbIsAlcohol.Text.ToString().ToLower() == "true")
+                isAlc = true;
+            else
+                isAlc = false;
+
+            Drink drink = new Drink()
+            {
+                DrinkId = int.Parse(tbDrinkId.Text.ToString()),
+                DrinkName = tbDrinkName.Text.ToString(),
+                Price = int.Parse(tbPrice.Text.ToString()),
+                IsAlcoholic = isAlc,
+                Stock = int.Parse(tbStock.Text.ToString()),
+                TimesSold = 0
+            };
+
+            DrinkService drinkService = new DrinkService();
+            drinkService.UpdateDrink(drink);
+            DisplayDrinks(drinkService.GetDrinks());
         }
     }
 
