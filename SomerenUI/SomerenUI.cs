@@ -520,8 +520,8 @@ namespace SomerenUI
             Drink selectedDrink;
             if (listViewDrinksSimple.SelectedItems.Count >= 1 && listViewStudentSimple.SelectedItems.Count >= 1)
             {
-                 selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
-                 selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
+                selectedDrink = listViewDrinksSimple.SelectedItems[0].Tag as Drink;
+                selectedStudent = listViewStudentSimple.SelectedItems[0].Tag as Student;
             }
             else
                 return;
@@ -531,8 +531,6 @@ namespace SomerenUI
         }
         public void CalculatePrice(Student student, Drink drink)
         {
-
-
 
             float priceToPay = float.Parse(drink.Price.ToString());
             if (drink.IsAlcoholic)

@@ -16,6 +16,10 @@ namespace SomerenDAL
                  $"SELECT * FROM CashRegister1"; //FOR SOME REASON IT COMPLAINS IF I DON'T USE THE TABLE AFTERWARDS SO I CHEAPLY USE IT HERE SO I DON'T GET ERRORS I WILL FIX THIS LATER ON 
             SqlParameter[] sqlParameters = new SqlParameter[0];
             ExecuteSelectQuery(query, sqlParameters);
+            string query2 =  $"UPDATE Drink SET TimesSold = {drink.TimesSold + 1} WHERE DrinkId = {drink.DrinkId}" +
+                $"SELECT * FROM CashRegister1";
+            SqlParameter[] sqlParameters2 = new SqlParameter[0];
+            ExecuteSelectQuery(query2, sqlParameters2);
         }  
     }
 }

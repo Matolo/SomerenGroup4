@@ -55,6 +55,8 @@
             btnDeleteDrink = new System.Windows.Forms.Button();
             btnAddDrink = new System.Windows.Forms.Button();
             pnlVat = new System.Windows.Forms.Panel();
+            cbSelectYear = new System.Windows.Forms.ComboBox();
+            cbSelectQuarter = new System.Windows.Forms.ComboBox();
             pnlDrinks = new System.Windows.Forms.Panel();
             listViewDrinks = new System.Windows.Forms.ListView();
             tbDrinkId = new System.Windows.Forms.TextBox();
@@ -73,8 +75,8 @@
             pnlRooms = new System.Windows.Forms.Panel();
             listViewRooms = new System.Windows.Forms.ListView();
             pnlCashRegister = new System.Windows.Forms.Panel();
-            btnCheckOut = new System.Windows.Forms.Button();
             lblAmountToPay = new System.Windows.Forms.Label();
+            btnCheckOut = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -312,7 +314,9 @@
             // pnlVat
             // 
             pnlVat.Controls.Add(lblVatSelectYear);
+            pnlVat.Controls.Add(cbSelectYear);
             pnlVat.Controls.Add(lblVatSelectQuarter);
+            pnlVat.Controls.Add(cbSelectQuarter);
             pnlVat.Controls.Add(lblVatQuarterRuns);
             pnlVat.Controls.Add(lblVatTotalVATLow);
             pnlVat.Controls.Add(lblVatTotalVATHigh);
@@ -322,6 +326,22 @@
             pnlVat.Name = "pnlVat";
             pnlVat.Size = new System.Drawing.Size(1340, 778);
             pnlVat.TabIndex = 6;
+            // 
+            // cbSelectYear
+            // 
+            cbSelectYear.FormattingEnabled = true;
+            cbSelectYear.Location = new System.Drawing.Point(583, 152);
+            cbSelectYear.Name = "cbSelectYear";
+            cbSelectYear.Size = new System.Drawing.Size(182, 33);
+            cbSelectYear.TabIndex = 3;
+            // 
+            // cbSelectQuarter
+            // 
+            cbSelectQuarter.FormattingEnabled = true;
+            cbSelectQuarter.Location = new System.Drawing.Point(583, 209);
+            cbSelectQuarter.Name = "cbSelectQuarter";
+            cbSelectQuarter.Size = new System.Drawing.Size(182, 33);
+            cbSelectQuarter.TabIndex = 4;
             // 
             // pnlDrinks
             // 
@@ -502,6 +522,15 @@
             pnlCashRegister.Size = new System.Drawing.Size(1340, 778);
             pnlCashRegister.TabIndex = 5;
             // 
+            // lblAmountToPay
+            // 
+            lblAmountToPay.AutoSize = true;
+            lblAmountToPay.Location = new System.Drawing.Point(145, 636);
+            lblAmountToPay.Name = "lblAmountToPay";
+            lblAmountToPay.Size = new System.Drawing.Size(173, 25);
+            lblAmountToPay.TabIndex = 4;
+            lblAmountToPay.Text = "Amount to be paid: ";
+            // 
             // btnCheckOut
             // 
             btnCheckOut.Location = new System.Drawing.Point(456, 579);
@@ -511,15 +540,6 @@
             btnCheckOut.Text = "Checkout";
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
-            // 
-            // lblAmountToPay
-            // 
-            lblAmountToPay.AutoSize = true;
-            lblAmountToPay.Location = new System.Drawing.Point(145, 636);
-            lblAmountToPay.Name = "lblAmountToPay";
-            lblAmountToPay.Size = new System.Drawing.Size(59, 25);
-            lblAmountToPay.TabIndex = 4;
-            lblAmountToPay.Text = "Amount to be paid: ";
             // 
             // SomerenUI
             // 
@@ -608,5 +628,7 @@
         private System.Windows.Forms.Button btnUpdateDrink;
         private System.Windows.Forms.Label lblAmountToPay;
         private System.Windows.Forms.Button btnCheckOut;
+        private System.Windows.Forms.ComboBox cbSelectYear;
+        private System.Windows.Forms.ComboBox cbSelectQuarter;
     }
 }
