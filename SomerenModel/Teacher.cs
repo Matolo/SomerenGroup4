@@ -1,9 +1,15 @@
-﻿namespace SomerenModel
+﻿using System;
+
+namespace SomerenModel
 {
     public class Teacher
     {
-        public int Id { get; set; }     // database id
-        public string Name { get; set; }
-        public int Number { get; set; } // LecturerNumber, e.g. 47198
+        public int TeacherId { get; set; }     // database id
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int PhoneNumber { get; set; }
+        public int Age { get; set; }
+        public int RoomId { get; set; }
+        public bool isSupervisor { get; set; }
     }
 }

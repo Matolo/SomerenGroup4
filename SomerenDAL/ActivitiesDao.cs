@@ -22,7 +22,7 @@ namespace SomerenDAL
 
         private List<SomerenModel.Activity> ReadTables(DataTable dataTable)
         {
-            List<SomerenModel.Activity> Activities = new List<SomerenModel.Activity>();
+            List<SomerenModel.Activity> activities = new List<SomerenModel.Activity>();
 
             foreach (DataRow dr in dataTable.Rows)
             {
@@ -33,9 +33,9 @@ namespace SomerenDAL
                     Date = (DateTime)dr["Date"],
                     time = (TimeSpan)dr["time"]
                 };
-                Activities.Add(activity);
+                activities.Add(activity);
             }
-            return Activities;
+            return activities;
         }
     }
 }
