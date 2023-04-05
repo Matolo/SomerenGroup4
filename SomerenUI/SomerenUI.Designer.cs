@@ -84,6 +84,11 @@ namespace SomerenUI
             pnlCashRegister = new System.Windows.Forms.Panel();
             lblAmountToPay = new System.Windows.Forms.Label();
             btnCheckOut = new System.Windows.Forms.Button();
+            pnlActivitySupervisors = new System.Windows.Forms.Panel();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
+            listView1 = new System.Windows.Forms.ListView();
+            btnRemoveSupervisors = new System.Windows.Forms.Button();
+            btnAddSupervisor = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -94,6 +99,8 @@ namespace SomerenUI
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlCashRegister.SuspendLayout();
+            pnlActivitySupervisors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -146,7 +153,7 @@ namespace SomerenUI
             // activitySupervisorsToolStripMenuItem
             // 
             activitySupervisorsToolStripMenuItem.Name = "activitySupervisorsToolStripMenuItem";
-            activitySupervisorsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            activitySupervisorsToolStripMenuItem.Size = new System.Drawing.Size(214, 26);
             activitySupervisorsToolStripMenuItem.Text = "Activity Supervisor";
             activitySupervisorsToolStripMenuItem.Click += activitySupervisorsToolStripMenuItem_Click_1;
             // 
@@ -174,28 +181,28 @@ namespace SomerenUI
             // drinksSuppliesToolStripMenuItem
             // 
             drinksSuppliesToolStripMenuItem.Name = "drinksSuppliesToolStripMenuItem";
-            drinksSuppliesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            drinksSuppliesToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             drinksSuppliesToolStripMenuItem.Text = "Drinks Supplies";
             drinksSuppliesToolStripMenuItem.Click += drinksSuppliesToolStripMenuItem_Click;
             // 
             // cashRegisterToolStripMenuItem
             // 
             cashRegisterToolStripMenuItem.Name = "cashRegisterToolStripMenuItem";
-            cashRegisterToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            cashRegisterToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             cashRegisterToolStripMenuItem.Text = "Cash Register";
             cashRegisterToolStripMenuItem.Click += cashRegisterToolStripMenuItem_Click;
             // 
             // revenueReportToolStripMenuItem
             // 
             revenueReportToolStripMenuItem.Name = "revenueReportToolStripMenuItem";
-            revenueReportToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            revenueReportToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             revenueReportToolStripMenuItem.Text = "Revenue Report";
             revenueReportToolStripMenuItem.Click += revenueReportToolStripMenuItem_Click;
             // 
             // vatCalculationToolStripMenuItem
             // 
             vatCalculationToolStripMenuItem.Name = "vatCalculationToolStripMenuItem";
-            vatCalculationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            vatCalculationToolStripMenuItem.Size = new System.Drawing.Size(197, 26);
             vatCalculationToolStripMenuItem.Text = "VAT Calculation";
             vatCalculationToolStripMenuItem.Click += vatCalculationToolStripMenuItem_Click;
             // 
@@ -574,18 +581,66 @@ namespace SomerenUI
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
             // 
+            // pnlActivitySupervisors
+            // 
+            pnlActivitySupervisors.Controls.Add(pictureBox2);
+            pnlActivitySupervisors.Controls.Add(listView1);
+            pnlActivitySupervisors.Controls.Add(btnRemoveSupervisors);
+            pnlActivitySupervisors.Controls.Add(btnAddSupervisor);
+            pnlActivitySupervisors.Location = new System.Drawing.Point(12, 39);
+            pnlActivitySupervisors.Name = "pnlActivitySupervisors";
+            pnlActivitySupervisors.Size = new System.Drawing.Size(1071, 619);
+            pnlActivitySupervisors.TabIndex = 3;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.someren;
+            pictureBox2.Location = new System.Drawing.Point(922, 1);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(133, 126);
+            pictureBox2.TabIndex = 3;
+            pictureBox2.TabStop = false;
+            // 
+            // listView1
+            // 
+            listView1.Location = new System.Drawing.Point(17, 22);
+            listView1.Name = "listView1";
+            listView1.Size = new System.Drawing.Size(810, 385);
+            listView1.TabIndex = 6;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // btnRemoveSupervisors
+            // 
+            btnRemoveSupervisors.Location = new System.Drawing.Point(367, 474);
+            btnRemoveSupervisors.Name = "btnRemoveSupervisors";
+            btnRemoveSupervisors.Size = new System.Drawing.Size(174, 29);
+            btnRemoveSupervisors.TabIndex = 5;
+            btnRemoveSupervisors.Text = "Remove Supervisors";
+            btnRemoveSupervisors.UseVisualStyleBackColor = true;
+            // 
+            // btnAddSupervisor
+            // 
+            btnAddSupervisor.Location = new System.Drawing.Point(144, 474);
+            btnAddSupervisor.Name = "btnAddSupervisor";
+            btnAddSupervisor.Size = new System.Drawing.Size(155, 29);
+            btnAddSupervisor.TabIndex = 4;
+            btnAddSupervisor.Text = "Add Supervisor";
+            btnAddSupervisor.UseVisualStyleBackColor = true;
+            // 
             // SomerenUI
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             ClientSize = new System.Drawing.Size(1099, 674);
             Controls.Add(menuStrip1);
-            Controls.Add(pnlStudents);
-            Controls.Add(pnlVat);
-            Controls.Add(pnlDrinks);
             Controls.Add(pnlDashboard);
-            Controls.Add(pnlTeachers);
+            Controls.Add(pnlStudents);
             Controls.Add(pnlActivities);
+            Controls.Add(pnlActivitySupervisors);
+            Controls.Add(pnlTeachers);
+            Controls.Add(pnlDrinks);
+            Controls.Add(pnlVat);
             Controls.Add(pnlRooms);
             Controls.Add(pnlCashRegister);
             MainMenuStrip = menuStrip1;
@@ -608,6 +663,8 @@ namespace SomerenUI
             pnlRooms.ResumeLayout(false);
             pnlCashRegister.ResumeLayout(false);
             pnlCashRegister.PerformLayout();
+            pnlActivitySupervisors.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -667,5 +724,10 @@ namespace SomerenUI
         private System.Windows.Forms.ComboBox cbSelectQuarter;
         private System.Windows.Forms.Button btnCalculateVat;
         private System.Windows.Forms.ToolStripMenuItem activitySupervisorsToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlActivitySupervisors;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Button btnRemoveSupervisors;
+        private System.Windows.Forms.Button btnAddSupervisor;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }

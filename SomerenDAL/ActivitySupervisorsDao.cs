@@ -42,15 +42,9 @@ namespace SomerenDAL
         }
         public void AddTeacher(Teacher teacher)
         {
-            string query = $"INSERT INTO Teacher (TeacherID, FirstName, LastName, isSupervisor)" +
+            string query = $"INSERT INTO Teacher (TeacherID, FirstName, LastName, Supervisor)" +
                 $"VALUES ({teacher.TeacherId}, '{teacher.FirstName}', {teacher.LastName}, '{teacher.isSupervisor}')";
 
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            ExecuteEditQuery(query, sqlParameters);
-        }
-        public void UpdateTeacher(Teacher teacher)
-        {
-            string query = $"UPDATE Teacher SET FirstName = '{teacher.FirstName}', LastName = '{teacher.LastName}', isSupervisor = '{teacher.isSupervisor}'";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             ExecuteEditQuery(query, sqlParameters);
         }

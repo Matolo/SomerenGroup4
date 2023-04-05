@@ -31,9 +31,6 @@ namespace SomerenService
         {
             teacherdb.AddTeacher(teacher);
         }
-        public void UpdateTeacher(Teacher teacher)
-        {
-            teacherdb.UpdateTeacher(teacher);
-        }
+      
     }
 }
