@@ -18,6 +18,7 @@ namespace SomerenUI
         {
             foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister })
             {
+
                 p.Hide();
             }
             panel.Show();
@@ -155,6 +156,26 @@ namespace SomerenUI
         {
             ShowActivitiesPanel();
         }
+
+        private void ShowSupervisorsPanel()
+        {
+            NewTab(pnlSupervisors, "Supervisors");
+
+            try
+            {
+                //get and display all teachers
+                List<Teacher> teachers = GetTeachers();
+                DisplayTeachers(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+            }
+        }
+        private void activitySupervisorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowSupervisorsPanel();
+        }
         private void ShowTeachersPanel()
         {
             NewTab(pnlTeachers, "Teachers");
@@ -262,13 +283,13 @@ namespace SomerenUI
         {
             ShowRoomsPanel();
         }
-        
+
         private void ShowVatPanel()
         {
             NewTab(pnlVat, "VAT");
 
             CashRegisterService cashRegisterService = new CashRegisterService();
-            cbSelectYear.DataSource = cashRegisterService.GetYears(); 
+            cbSelectYear.DataSource = cashRegisterService.GetYears();
 
         }
 
@@ -562,7 +583,7 @@ namespace SomerenUI
 
             List<Drink> soldDrinks = drinkService.GetSoldDrinks(start, end);
 
-            foreach(Drink drink in soldDrinks)
+            foreach (Drink drink in soldDrinks)
             {
                 if (drink.IsAlcoholic)
                     highVAT += (float)drink.Price * 0.21f;
@@ -576,6 +597,15 @@ namespace SomerenUI
 
         }
 
+        private void activitySupervisorsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            ShowTeachersPanel();
+        }
+
+        private void revenueReportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }
