@@ -9,44 +9,50 @@ using System.Threading.Tasks;
 
 namespace SomerenDAL
 {
-    public class ActivitySupervisorsDao: BaseDao
+    public class ActivitySupervisorsDao:BaseDao
     {
-        public List<Teacher> GetAllTeachers()
+        public List<ActivitySupervisors> GetAllSupervisors()
         {
-            string query = "SELECT LecturerId, FirstName, LastName, FROM Lecturer";
+            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId FROM Lecturer";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
-        private List<Teacher> ReadTables(DataTable dataTable)
+       // public List<ActivitySupervisors> GetActivitiys()
+       // {
+
+       // }
+       private List<ActivitySupervisors> ReadTables(DataTable dataTable)
         {
-            List<Teacher> teachers = new List<Teacher>();
+            List<ActivitySupervisors> activitiesSupervisors = new List<ActivitySupervisors>();
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                Teacher teacher = new Teacher()
+                ActivitySupervisors activitySupervisor = new ActivitySupervisors()
                 {
-                    TeacherId = (int)(dr["LecturerId"]),
+                    TeacherID = (int)dr["LectureId"],
                     FirstName = dr["FirstName"].ToString(),
                     LastName = dr["LastName"].ToString(),
-                    //isSupervisor = (bool)dr["isSupervisor"]
+                    isSupervisors = (bool)dr["isSupervisor"]
                 };
-                teachers.Add(teacher);
+                activitiesSupervisors.Add(activitySupervisor);
             }
-            return teachers;
+            return activitiesSupervisors;
         }
-        public void DeleteTeacher(int TeacherID)
-        {
-            string query = $"DELETE FROM Teacher WHERE TeacherID = {TeacherID}";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            ExecuteEditQuery(query, sqlParameters);
-        }
-        public void AddTeacher(Teacher teacher)
+        public void AddSupervisor(Teacher teacher)
         {
             string query = $"INSERT INTO Teacher (TeacherID, FirstName, LastName, Supervisor)" +
                 $"VALUES ({teacher.TeacherId}, '{teacher.FirstName}', {teacher.LastName}, '{teacher.isSupervisor}')";
 
             SqlParameter[] sqlParameters = new SqlParameter[0];
             ExecuteEditQuery(query, sqlParameters);
+
+        }
+        public void DeleteSupervisor(int TeacherID)
+        {
+            string query = $"DELETE FROM Teacher WHERE TeacherID = {TeacherID}";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            ExecuteEditQuery(query, sqlParameters);
         }
     }
+
 }

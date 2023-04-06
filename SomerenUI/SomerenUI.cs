@@ -598,11 +598,13 @@ namespace SomerenUI
             {
                 //get and display all teachers
                 List<Teacher> teachers = GetTeachers();
+                List<Activity> activities = GetActivities();
                 DisplaySimpleSupervisors(teachers);
+                DisplayActivities(activities);
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the supervisors: " + e.Message);
             }
         }
         private void DisplaySimpleSupervisors(List<Teacher> teachers)
@@ -643,26 +645,12 @@ namespace SomerenUI
                 TeacherId = int.Parse(textBox1.Text.ToString()),
                 FirstName = textBox2.Text.ToString(),
                 LastName = textBox3.Text.ToString(),
-                
-                isSupervisor = true
             };
             TeacherService teacherService = new TeacherService();
             teacherService.AddTeacher(newSupervisor);
             DisplaySimpleSupervisors(teacherService.GetTeachers());
 
-            //Drink drink = new Drink()
-            //{
-            //    DrinkId = int.Parse(tbDrinkId.Text.ToString()),
-            //    DrinkName = tbDrinkName.Text.ToString(),
-            //    Price = int.Parse(tbPrice.Text.ToString()),
-            //    IsAlcoholic = isAlc,
-            //    Stock = int.Parse(tbStock.Text.ToString()),
-            //    TimesSold = 0
-            //};
-
-            //DrinkService drinkService = new DrinkService();
-            //drinkService.AddDrink(drink);
-            //DisplayDrinks(drinkService.GetDrinks());
+            
         }
 
         private void btnRemoveSupervisors_Click(object sender, EventArgs e)

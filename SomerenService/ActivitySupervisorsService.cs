@@ -19,17 +19,17 @@ namespace SomerenService
 
         public List<Teacher> GetTeachers()
         {
-            List<Teacher> teachers = activitySupervisorsdb.GetAllTeachers();
+            List<Teacher> teachers = activitySupervisorsdb.GetAllSupervisors();
             return teachers;
         }
 
         public void DeleteTeacher(int TeacherId)
         {
-            activitySupervisorsdb.DeleteTeacher(TeacherId);
+            activitySupervisorsdb.DeleteSupervisor(TeacherId);
         }
         public void AddTeacher(Teacher teacher)
         {
-            activitySupervisorsdb.AddTeacher(teacher);
+            activitySupervisorsdb.AddSupervisor(teacher);
         }
       
     }
