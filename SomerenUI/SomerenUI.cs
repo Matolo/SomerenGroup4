@@ -16,7 +16,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister, pnlActivitiesParticipants })
             {
                 p.Hide();
             }
@@ -192,7 +192,7 @@ namespace SomerenUI
         // if (selectedItem.TimesSold == 0)
         //    drinkService.DeleteDrink(selectedItem.DrinkId);
         //     DisplayDrinks(drinkService.GetDrinks());     
-    
+
         private void btnAddActivity_Click(object sender, System.EventArgs e)
         {
 
@@ -630,8 +630,93 @@ namespace SomerenUI
         {
             ShowActivitiesPanel();
         }
+        public void DisplaySimpleActivities(List<Activity> activities)
+        {
+            listViewActivitiesSimple.Clear();
 
+            listViewActivitiesSimple.View = View.Details;
+            listViewActivitiesSimple.Columns.Add("Activity ID");
+            listViewActivitiesSimple.Columns.Add("Activity Name");
+
+
+            foreach (Activity activity in activities)
+            {
+                ListViewItem item = new ListViewItem(activity.ActivityId.ToString());
+                item.SubItems.Add(activity.Type);
+                item.Tag = activity;
+                listViewActivitiesSimple.Items.Add(item);
+            }
+            listViewActivitiesSimple.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+        }
+        private List<Student> GetParticipants(Activity activity)
+        {
+            ParticipantsService participantsService = new ParticipantsService();
+            List<Student> students = participantsService.GetParticipants(activity);
+            return students;
+        }
+        public void DisplayParticipants(List<Student> students)
+        {
+            // clear the listview before filling it
+            listViewParticipants.Clear();
+
+            listViewParticipants.View = View.Details;
+            listViewParticipants.Columns.Add("Student ID");
+            listViewParticipants.Columns.Add("First Name");
+            listViewParticipants.Columns.Add("Last Name");
+
+            foreach (Student student in students)
+            {
+
+                ListViewItem item = new ListViewItem(student.StudentId.ToString());
+                item.SubItems.Add(student.FirstName);
+                item.SubItems.Add(student.LastName);
+
+                item.Tag = student;
+                listViewParticipants.Items.Add(item);
+            }
+            listViewParticipants.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
         // private void listViewStudents_SelectedIndexChanged(object sender, EventArgs e)
+        private void activityParticipantsToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            ShowActivityParticipantsPanel();
+        }
+        public void ShowActivityParticipantsPanel()
+        {
+            NewTab(pnlActivitiesParticipants, "Participants");
+/*            listViewParticipants.Hide();
+*/
+            try
+            {
+                // get and display all activities
+                List<Activity> activities = GetActivities();
+                DisplaySimpleActivities(activities);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the activities: " + e.Message);
+            }
+        }
+        private void ListViewActivitiesSimple_Click(object sender, EventArgs e)
+        {
+            Activity selectedActivity;
+
+            selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
+            
+            try
+            {
+                List<Student> participants = GetParticipants(selectedActivity);
+                DisplayParticipants(participants);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while loading the cash register: " + ex.Message);
+            }
+        }
+        private void PnlActivitiesParticipants_Click(object sender, EventArgs e)
+        {
+        }
 
     }
 }

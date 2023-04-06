@@ -41,6 +41,8 @@ namespace SomerenUI
             lecturersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             activitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             listOfActivitiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            activitySupervisorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            activityParticipantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             roomsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             drinksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             drinksSuppliesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,6 +82,8 @@ namespace SomerenUI
             tbIsAlcohol = new System.Windows.Forms.TextBox();
             tbStock = new System.Windows.Forms.TextBox();
             btnUpdateDrink = new System.Windows.Forms.Button();
+            pnlActivitiesParticipants = new System.Windows.Forms.Panel();
+            listViewActivitiesSimple = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachers = new System.Windows.Forms.ListView();
@@ -92,14 +96,14 @@ namespace SomerenUI
             pnlCashRegister = new System.Windows.Forms.Panel();
             lblAmountToPay = new System.Windows.Forms.Label();
             btnCheckOut = new System.Windows.Forms.Button();
-            activitySupervisorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            activityParticipantsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            listViewParticipants = new System.Windows.Forms.ListView();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlVat.SuspendLayout();
             pnlDrinks.SuspendLayout();
+            pnlActivitiesParticipants.SuspendLayout();
             pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
@@ -160,9 +164,22 @@ namespace SomerenUI
             // listOfActivitiesToolStripMenuItem
             // 
             listOfActivitiesToolStripMenuItem.Name = "listOfActivitiesToolStripMenuItem";
-            listOfActivitiesToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            listOfActivitiesToolStripMenuItem.Size = new System.Drawing.Size(269, 34);
             listOfActivitiesToolStripMenuItem.Text = " List of Activities";
             listOfActivitiesToolStripMenuItem.Click += listOfActivitiesToolStripMenuItem_Click;
+            // 
+            // activitySupervisorsToolStripMenuItem
+            // 
+            activitySupervisorsToolStripMenuItem.Name = "activitySupervisorsToolStripMenuItem";
+            activitySupervisorsToolStripMenuItem.Size = new System.Drawing.Size(269, 34);
+            activitySupervisorsToolStripMenuItem.Text = "Activity Supervisors";
+            // 
+            // activityParticipantsToolStripMenuItem
+            // 
+            activityParticipantsToolStripMenuItem.Name = "activityParticipantsToolStripMenuItem";
+            activityParticipantsToolStripMenuItem.Size = new System.Drawing.Size(269, 34);
+            activityParticipantsToolStripMenuItem.Text = "Activity Participants";
+            activityParticipantsToolStripMenuItem.Click += activityParticipantsToolStripMenuItem_Click;
             // 
             // roomsToolStripMenuItem
             // 
@@ -521,6 +538,29 @@ namespace SomerenUI
             btnUpdateDrink.UseVisualStyleBackColor = true;
             btnUpdateDrink.Click += btnUpdateDrink_Click;
             // 
+            // pnlActivitiesParticipants
+            // 
+            pnlActivitiesParticipants.Controls.Add(listViewActivitiesSimple);
+            pnlActivitiesParticipants.Controls.Add(listViewParticipants);
+            pnlActivitiesParticipants.Location = new System.Drawing.Point(18, 45);
+            pnlActivitiesParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            pnlActivitiesParticipants.Name = "pnlActivitiesParticipants";
+            pnlActivitiesParticipants.Size = new System.Drawing.Size(1340, 778);
+            pnlActivitiesParticipants.TabIndex = 5;
+            pnlActivitiesParticipants.Click += PnlActivitiesParticipants_Click;
+            // 
+            // listViewActivitiesSimple
+            // 
+            listViewActivitiesSimple.FullRowSelect = true;
+            listViewActivitiesSimple.GridLines = true;
+            listViewActivitiesSimple.Location = new System.Drawing.Point(19, 52);
+            listViewActivitiesSimple.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewActivitiesSimple.Name = "listViewActivitiesSimple";
+            listViewActivitiesSimple.Size = new System.Drawing.Size(1093, 250);
+            listViewActivitiesSimple.TabIndex = 11;
+            listViewActivitiesSimple.UseCompatibleStateImageBehavior = false;
+            listViewActivitiesSimple.Click += ListViewActivitiesSimple_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -651,17 +691,16 @@ namespace SomerenUI
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
             // 
-            // activitySupervisorsToolStripMenuItem
+            // listViewParticipants
             // 
-            activitySupervisorsToolStripMenuItem.Name = "activitySupervisorsToolStripMenuItem";
-            activitySupervisorsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            activitySupervisorsToolStripMenuItem.Text = "Activity Supervisors";
-            // 
-            // activityParticipantsToolStripMenuItem
-            // 
-            activityParticipantsToolStripMenuItem.Name = "activityParticipantsToolStripMenuItem";
-            activityParticipantsToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            activityParticipantsToolStripMenuItem.Text = "Activity Participants";
+            listViewParticipants.FullRowSelect = true;
+            listViewParticipants.GridLines = true;
+            listViewParticipants.Location = new System.Drawing.Point(19, 300);
+            listViewParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewParticipants.Name = "listViewParticipants";
+            listViewParticipants.Size = new System.Drawing.Size(1093, 250);
+            listViewParticipants.TabIndex = 12;
+            listViewParticipants.UseCompatibleStateImageBehavior = false;
             // 
             // SomerenUI
             // 
@@ -677,6 +716,7 @@ namespace SomerenUI
             Controls.Add(pnlDrinks);
             Controls.Add(pnlVat);
             Controls.Add(pnlCashRegister);
+            Controls.Add(pnlActivitiesParticipants);
             MainMenuStrip = menuStrip1;
             Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             Name = "SomerenUI";
@@ -691,6 +731,7 @@ namespace SomerenUI
             pnlVat.PerformLayout();
             pnlDrinks.ResumeLayout(false);
             pnlDrinks.PerformLayout();
+            pnlActivitiesParticipants.ResumeLayout(false);
             pnlTeachers.ResumeLayout(false);
             pnlActivities.ResumeLayout(false);
             pnlActivities.PerformLayout();
@@ -723,6 +764,7 @@ namespace SomerenUI
         private System.Windows.Forms.Panel pnlStudents;
         private System.Windows.Forms.Panel pnlVat;
         private System.Windows.Forms.Panel pnlDrinks;
+        private System.Windows.Forms.Panel pnlActivitiesParticipants;
         private System.Windows.Forms.Panel pnlTeachers;
         private System.Windows.Forms.Panel pnlActivities;
         private System.Windows.Forms.Panel pnlRooms;
@@ -765,5 +807,7 @@ namespace SomerenUI
         private System.Windows.Forms.TextBox txtStartTime;
         private System.Windows.Forms.ToolStripMenuItem activitySupervisorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem activityParticipantsToolStripMenuItem;
+        private System.Windows.Forms.ListView listViewActivitiesSimple;
+        private System.Windows.Forms.ListView listViewParticipants;
     }
 }
