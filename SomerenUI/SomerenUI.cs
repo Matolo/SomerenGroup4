@@ -162,7 +162,7 @@ namespace SomerenUI
             txtActivityId.Text = selectedItem.ActivityId.ToString();
             txtActivityName.Text = selectedItem.Type.ToString();
             txtDate.Text = selectedItem.Date.ToString();
-            txtStartTime.Text = selectedItem.time.ToString(); 
+            txtStartTime.Text = selectedItem.time.ToString();
             txtEndTime.Text = selectedItem.EndTime.ToString();
         }
         private void btnUpdateActivity_Click(object sender, EventArgs e)
@@ -470,7 +470,7 @@ namespace SomerenUI
 
             try
             {
-               //get and display all students and drinks
+                //get and display all students and drinks
                 List<Student> students = GetStudents();
                 List<Drink> drinks = GetDrinks();
                 DisplaySimpleStudents(students);
