@@ -12,5 +12,7 @@ namespace SomerenModel
         public string Type { get; set; }
         public DateTime Date { get; set; }
         public TimeSpan time { get; set; }
+
+        public TimeSpan EndTime { get; set; }
     }
 }

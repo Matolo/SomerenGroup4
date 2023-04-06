@@ -136,7 +136,9 @@ namespace SomerenUI
             listViewActivities.Columns.Add("Activity ID");
             listViewActivities.Columns.Add("Activity Name");
             listViewActivities.Columns.Add("Date");
-            listViewActivities.Columns.Add("Time");
+            listViewActivities.Columns.Add("Begin Time");
+            listViewActivities.Columns.Add("End Time");
+
 
             foreach (Activity activity in activities)
             {
@@ -144,6 +146,7 @@ namespace SomerenUI
                 item.SubItems.Add(activity.Type);
                 item.SubItems.Add(activity.Date.ToString("yyyy/MM/dd"));
                 item.SubItems.Add(activity.time.ToString());
+                item.SubItems.Add(activity.EndTime.ToString());
                 item.Tag = activity;
                 listViewActivities.Items.Add(item);
             }
@@ -151,9 +154,60 @@ namespace SomerenUI
             listViewActivities.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
-        private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void listViewActivities_Click(object sender, EventArgs e)
         {
-            ShowActivitiesPanel();
+
+            Activity selectedItem = listViewActivities.SelectedItems[0].Tag as Activity;
+
+            txtActivityId.Text = selectedItem.ActivityId.ToString();
+            txtActivityName.Text = selectedItem.Type.ToString();
+            txtDate.Text = selectedItem.Date.ToString();
+            txtStartTime.Text = selectedItem.time.ToString(); 
+            txtEndTime.Text = selectedItem.EndTime.ToString();
+        }
+        private void btnUpdateActivity_Click(object sender, EventArgs e)
+        {
+            Activity activity = new Activity()
+            {
+                ActivityId = int.Parse(txtActivityId.Text.ToString()),
+                Type = txtActivityName.Text.ToString(),
+                Date = DateTime.Parse(txtDate.Text.ToString()),
+                time = TimeSpan.Parse(txtStartTime.Text.ToString()),
+                EndTime = TimeSpan.Parse(txtEndTime.Text.ToString())
+            };
+            ActivityService activityService = new ActivityService();
+            activityService.UpdateActivity(activity);
+            DisplayActivities(activityService.GetActivities());
+        }
+        private void btnDeleteActivity_Click(object sender, System.EventArgs e)
+        {
+            Activity activity = new Activity();
+
+            if (listViewActivities.SelectedItems.Count > 0)
+            {
+                Activity selectedItem = listViewActivities.SelectedItems[0].Tag as Activity;
+
+                // if (selectedItem.TimesSold == 0)
+                //    drinkService.DeleteDrink(selectedItem.DrinkId);
+                //     DisplayDrinks(drinkService.GetDrinks());     
+            }
+        }
+        private void btnAddActivity_Click(object sender, System.EventArgs e)
+        {
+
+            Activity activity = new Activity()
+            {
+                ActivityId = int.Parse(tbDrinkId.Text.ToString()),
+                Type = txtActivityName.Text.ToString(),
+                Date = DateTime.Parse(txtDate.Text.ToString()),
+                time = TimeSpan.Parse(txtStartTime.Text.ToString()),
+                EndTime = TimeSpan.Parse(txtEndTime.Text.ToString())
+            };
+
+            ActivityService activityService = new ActivityService();
+            activityService.AddActivity(activity);
+            DisplayActivities(activityService.GetActivities());
+
         }
         private void ShowTeachersPanel()
         {
@@ -188,7 +242,7 @@ namespace SomerenUI
             listViewTeachers.Columns.Add("Phone Number");
             listViewTeachers.Columns.Add("Age");
             listViewTeachers.Columns.Add("Room ID");
-            listViewTeachers.Columns.Add("Supervisor");
+          //  listViewTeachers.Columns.Add("Supervisor");
 
             foreach (Teacher teacher in teachers)
             {
@@ -198,10 +252,10 @@ namespace SomerenUI
                 item.SubItems.Add(teacher.PhoneNumber.ToString());
                 item.SubItems.Add(teacher.Age.ToString());
                 item.SubItems.Add(teacher.RoomId.ToString());
-                if (teacher.isSupervisor)
-                    item.SubItems.Add("Yes");
-                else
-                    item.SubItems.Add("No");
+              //  if (teacher.isSupervisor)
+                 //   item.SubItems.Add("Yes");
+                //else
+                  //  item.SubItems.Add("No");
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
@@ -262,13 +316,13 @@ namespace SomerenUI
         {
             ShowRoomsPanel();
         }
-        
+
         private void ShowVatPanel()
         {
             NewTab(pnlVat, "VAT");
 
             CashRegisterService cashRegisterService = new CashRegisterService();
-            cbSelectYear.DataSource = cashRegisterService.GetYears(); 
+            cbSelectYear.DataSource = cashRegisterService.GetYears();
 
         }
 
@@ -421,7 +475,7 @@ namespace SomerenUI
 
             try
             {
-                // get and display all students and drinks
+               //get and display all students and drinks
                 List<Student> students = GetStudents();
                 List<Drink> drinks = GetDrinks();
                 DisplaySimpleStudents(students);
@@ -562,7 +616,7 @@ namespace SomerenUI
 
             List<Drink> soldDrinks = drinkService.GetSoldDrinks(start, end);
 
-            foreach(Drink drink in soldDrinks)
+            foreach (Drink drink in soldDrinks)
             {
                 if (drink.IsAlcoholic)
                     highVAT += (float)drink.Price * 0.21f;
@@ -576,6 +630,14 @@ namespace SomerenUI
 
         }
 
-    }
+        private void listOfActivitiesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowActivitiesPanel();
+        }
 
+        // private void listViewStudents_SelectedIndexChanged(object sender, EventArgs e)
+
+    }
 }
+
+
