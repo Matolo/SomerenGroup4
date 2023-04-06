@@ -13,7 +13,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAllTeachers()
         {
-            string query = "SELECT LecturerId, FirstName, LastName, isSupervisor FROM Lecturer";
+            string query = "SELECT LecturerId, FirstName, LastName, FROM Lecturer";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -28,7 +28,7 @@ namespace SomerenDAL
                     TeacherId = (int)(dr["LecturerId"]),
                     FirstName = dr["FirstName"].ToString(),
                     LastName = dr["LastName"].ToString(),
-                    isSupervisor = (bool)dr["isSupervisor"]
+                    //isSupervisor = (bool)dr["isSupervisor"]
                 };
                 teachers.Add(teacher);
             }

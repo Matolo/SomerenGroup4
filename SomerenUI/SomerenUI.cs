@@ -16,7 +16,7 @@ namespace SomerenUI
         }
         private void NewTab(Panel panel, string name)
         {
-            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister })
+            foreach (Panel p in new[] { pnlDashboard, pnlStudents, pnlTeachers, pnlActivities, pnlRooms, pnlVat, pnlDrinks, pnlCashRegister, pnlActivitySupervisors })
             {
 
                 p.Hide();
@@ -39,6 +39,15 @@ namespace SomerenUI
         private void ShowDashboardPanel()
         {
             NewTab(pnlDashboard, "Dashboard");
+        }
+        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
+        {
+            ShowDashboardPanel();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            Application.Exit();
         }
 
         private void ShowStudentsPanel()
@@ -93,20 +102,72 @@ namespace SomerenUI
 
         }
 
-        private void dashboardToolStripMenuItem1_Click(object sender, System.EventArgs e)
-        {
-            ShowDashboardPanel();
-        }
-
-        private void exitToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
-            Application.Exit();
-        }
-
         private void studentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowStudentsPanel();
         }
+
+
+
+        private void ShowTeachersPanel()
+        {
+            NewTab(pnlTeachers, "Teachers");
+
+            try
+            {
+                // get and display all teachers
+                List<Teacher> teachers = GetTeachers();
+                DisplayTeachers(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+            }
+        }
+        private List<Teacher> GetTeachers()
+        {
+            TeacherService teacherService = new TeacherService();
+            List<Teacher> teachers = teacherService.GetTeachers();
+            return teachers;
+        }
+        private void DisplayTeachers(List<Teacher> teachers)
+        {
+            // clear the listview before filling it
+            listViewTeachers.Clear();
+
+            listViewTeachers.View = View.Details;
+            listViewTeachers.Columns.Add("Lecturer ID");
+            listViewTeachers.Columns.Add("First Name");
+            listViewTeachers.Columns.Add("Last Name");
+            listViewTeachers.Columns.Add("Phone Number");
+            listViewTeachers.Columns.Add("Age");
+            listViewTeachers.Columns.Add("Room ID");
+            //listViewTeachers.Columns.Add("Supervisor");
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
+                item.SubItems.Add(teacher.FirstName);
+                item.SubItems.Add(teacher.LastName);
+                item.SubItems.Add(teacher.PhoneNumber.ToString());
+                item.SubItems.Add(teacher.Age.ToString());
+                item.SubItems.Add(teacher.RoomId.ToString());
+                //if (teacher.isSupervisor)
+                //    item.SubItems.Add("Yes");
+                //else
+                //    item.SubItems.Add("No");
+                item.Tag = teacher;
+                listViewTeachers.Items.Add(item);
+            }
+            //listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
+        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTeachersPanel();
+        }
+
         private void ShowActivitiesPanel()
         {
             NewTab(pnlActivities, "Activities");
@@ -155,84 +216,6 @@ namespace SomerenUI
         private void activitiesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowActivitiesPanel();
-        }
-
-        private void ShowSupervisorsPanel()
-        {
-            NewTab(pnlSupervisors, "Supervisors");
-
-            try
-            {
-                //get and display all teachers
-                List<Teacher> teachers = GetTeachers();
-                DisplayTeachers(teachers);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
-            }
-        }
-        private void activitySupervisorsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowSupervisorsPanel();
-        }
-        private void ShowTeachersPanel()
-        {
-            NewTab(pnlTeachers, "Teachers");
-
-            try
-            {
-                // get and display all teachers
-                List<Teacher> teachers = GetTeachers();
-                DisplayTeachers(teachers);
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
-            }
-        }
-        private List<Teacher> GetTeachers()
-        {
-            TeacherService teacherService = new TeacherService();
-            List<Teacher> teachers = teacherService.GetTeachers();
-            return teachers;
-        }
-        private void DisplayTeachers(List<Teacher> teachers)
-        {
-            // clear the listview before filling it
-            listViewTeachers.Clear();
-
-            listViewTeachers.View = View.Details;
-            listViewTeachers.Columns.Add("Lecturer ID");
-            listViewTeachers.Columns.Add("First Name");
-            listViewTeachers.Columns.Add("Last Name");
-            listViewTeachers.Columns.Add("Phone Number");
-            listViewTeachers.Columns.Add("Age");
-            listViewTeachers.Columns.Add("Room ID");
-            listViewTeachers.Columns.Add("Supervisor");
-
-            foreach (Teacher teacher in teachers)
-            {
-                ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
-                item.SubItems.Add(teacher.FirstName);
-                item.SubItems.Add(teacher.LastName);
-                item.SubItems.Add(teacher.PhoneNumber.ToString());
-                item.SubItems.Add(teacher.Age.ToString());
-                item.SubItems.Add(teacher.RoomId.ToString());
-                if (teacher.isSupervisor)
-                    item.SubItems.Add("Yes");
-                else
-                    item.SubItems.Add("No");
-                item.Tag = teacher;
-                listViewTeachers.Items.Add(item);
-            }
-            //listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            listViewTeachers.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-
-        }
-        private void lecturersToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowTeachersPanel();
         }
         private void ShowRoomsPanel()
         {
@@ -454,6 +437,7 @@ namespace SomerenUI
             }
         }
 
+
         private void DisplaySimpleStudents(List<Student> students)
         {
 
@@ -597,16 +581,98 @@ namespace SomerenUI
 
         }
 
-        private void activitySupervisorsToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-            ShowTeachersPanel();
-        }
+
 
         private void revenueReportToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
         }
+        /// <summary>
+        /// ////////////////////////////////
+        /// </summary>
+        private void ShowSupervisorsPanel()
+        {
+            NewTab(pnlActivitySupervisors, "Supervisors");
 
+            try
+            {
+                //get and display all teachers
+                List<Teacher> teachers = GetTeachers();
+                DisplaySimpleSupervisors(teachers);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Something went wrong while loading the teachers: " + e.Message);
+            }
+        }
+        private void DisplaySimpleSupervisors(List<Teacher> teachers)
+        {
+            listViewActivitySupervisors.Clear();
+
+            listViewActivitySupervisors.View = View.Details;
+            listViewActivitySupervisors.Columns.Add("Teacher ID");
+            listViewActivitySupervisors.Columns.Add("First Name");
+            listViewActivitySupervisors.Columns.Add("Last Name");
+            //listViewActivitySupervisors.Columns.Add("isSupervisor");
+
+            foreach (Teacher teacher in teachers)
+            {
+                ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
+                item.SubItems.Add(teacher.FirstName);
+                item.SubItems.Add(teacher.LastName);
+                //if (teacher.isSupervisor)
+                //    item.SubItems.Add("Yes");
+                //else
+                //    item.SubItems.Add("No");
+                item.Tag = teacher;
+                listViewTeachers.Items.Add(item);
+            }
+            listViewActivitySupervisors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
+
+        private void activitySupervisorsToolStripMenuItem_Click_1(object sender, EventArgs e)
+        {
+            ShowSupervisorsPanel();
+        }
+
+        private void btnAddSupervisor_Click(object sender, EventArgs e)
+        {
+            Teacher newSupervisor = new Teacher()
+            {
+                TeacherId = int.Parse(textBox1.Text.ToString()),
+                FirstName = textBox2.Text.ToString(),
+                LastName = textBox3.Text.ToString(),
+                
+                isSupervisor = true
+            };
+            TeacherService teacherService = new TeacherService();
+            teacherService.AddTeacher(newSupervisor);
+            DisplaySimpleSupervisors(teacherService.GetTeachers());
+
+            //Drink drink = new Drink()
+            //{
+            //    DrinkId = int.Parse(tbDrinkId.Text.ToString()),
+            //    DrinkName = tbDrinkName.Text.ToString(),
+            //    Price = int.Parse(tbPrice.Text.ToString()),
+            //    IsAlcoholic = isAlc,
+            //    Stock = int.Parse(tbStock.Text.ToString()),
+            //    TimesSold = 0
+            //};
+
+            //DrinkService drinkService = new DrinkService();
+            //drinkService.AddDrink(drink);
+            //DisplayDrinks(drinkService.GetDrinks());
+        }
+
+        private void btnRemoveSupervisors_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        /// <summary>
+        /// ///////////
+        /// </summary>
 
     }
 

@@ -13,7 +13,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAllTeachers()
         {
-            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId, isSupervisor FROM Lecturer";
+            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId FROM Lecturer";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -36,6 +36,20 @@ namespace SomerenDAL
                 teachers.Add(teacher);
             }
             return teachers;
+        }
+        public void DeleteTeacher(int TeacherID)
+        {
+            string query = $"DELETE FROM Teacher WHERE TeacherID = {TeacherID}";
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            ExecuteEditQuery(query, sqlParameters);
+        }
+        public void AddTeacher(Teacher teacher)
+        {
+            string query = $"INSERT INTO Teacher (TeacherID, FirstName, LastName, Supervisor)" +
+                $"VALUES ({teacher.TeacherId}, '{teacher.FirstName}', {teacher.LastName}, '{teacher.isSupervisor}')";
+
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            ExecuteEditQuery(query, sqlParameters);
         }
     }
 }

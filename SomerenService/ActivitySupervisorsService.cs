@@ -10,26 +10,26 @@ namespace SomerenService
 {
     public class ActivitySupervisorsService
     {
-        private ActivitySupervisorsDao teacherdb;
+        private ActivitySupervisorsDao activitySupervisorsdb;
 
         public ActivitySupervisorsService()
         {
-            teacherdb = new ActivitySupervisorsDao();
+            activitySupervisorsdb = new ActivitySupervisorsDao();
         }
 
         public List<Teacher> GetTeachers()
         {
-            List<Teacher> teachers = teacherdb.GetAllTeachers();
+            List<Teacher> teachers = activitySupervisorsdb.GetAllTeachers();
             return teachers;
         }
 
-        public void DeleteDrink(int TeacherId)
+        public void DeleteTeacher(int TeacherId)
         {
-            teacherdb.DeleteTeacher(TeacherId);
+            activitySupervisorsdb.DeleteTeacher(TeacherId);
         }
         public void AddTeacher(Teacher teacher)
         {
-            teacherdb.AddTeacher(teacher);
+            activitySupervisorsdb.AddTeacher(teacher);
         }
       
     }

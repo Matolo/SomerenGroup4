@@ -16,6 +16,14 @@ namespace SomerenService
         {
             teacherdb = new TeacherDao();
         }
+        public void DeleteTeacher(int TeacherId)
+        {
+            teacherdb.DeleteTeacher(TeacherId);
+        }
+        public void AddTeacher(Teacher teacher)
+        {
+            teacherdb.AddTeacher(teacher);
+        }
 
         public List<Teacher> GetTeachers()
         {
