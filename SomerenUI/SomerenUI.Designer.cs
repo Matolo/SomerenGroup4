@@ -593,6 +593,7 @@ namespace SomerenUI
             this.listViewActivities.Size = new System.Drawing.Size(1093, 509);
             this.listViewActivities.TabIndex = 7;
             this.listViewActivities.UseCompatibleStateImageBehavior = false;
+            this.listViewActivities.Click += listViewActivities_Click;
             // 
             // listViewStudentSimple
             // 
