@@ -367,6 +367,7 @@ namespace SomerenUI
             this.btnUpdateActivity.TabIndex = 5;
             this.btnUpdateActivity.Text = "Update";
             this.btnUpdateActivity.UseVisualStyleBackColor = true;
+            this.btnUpdateActivity.Click += btnUpdateActivity_Click;
             // 
             // btnDeleteActivity
             // 
@@ -376,6 +377,7 @@ namespace SomerenUI
             this.btnDeleteActivity.TabIndex = 8;
             this.btnDeleteActivity.Text = "Delete Activity";
             this.btnDeleteActivity.UseVisualStyleBackColor = true;
+            this.btnDeleteActivity.Click += btnDeleteActivity_Click;
             // 
             // btnAddActivity
             // 
@@ -385,6 +387,7 @@ namespace SomerenUI
             this.btnAddActivity.TabIndex = 3;
             this.btnAddActivity.Text = "Add Activity";
             this.btnAddActivity.UseVisualStyleBackColor = true;
+            this.btnAddActivity.Click += btnAddActivity_Click;
             // 
             // btnDeleteDrink
             // 
@@ -394,6 +397,7 @@ namespace SomerenUI
             this.btnDeleteDrink.TabIndex = 9;
             this.btnDeleteDrink.Text = "Delete Drink";
             this.btnDeleteDrink.UseVisualStyleBackColor = true;
+            this.btnDeleteDrink.Click += BtnDeleteDrink_Click;
             // 
             // btnAddDrink
             // 
@@ -403,6 +407,7 @@ namespace SomerenUI
             this.btnAddDrink.TabIndex = 8;
             this.btnAddDrink.Text = "Add Drink";
             this.btnAddDrink.UseVisualStyleBackColor = true;
+            this.btnAddDrink.Click += BtnAddDrink_Click;
             // 
             // pnlVat
             // 
@@ -450,6 +455,7 @@ namespace SomerenUI
             this.btnCalculateVat.TabIndex = 3;
             this.btnCalculateVat.Text = "Calculate Vat";
             this.btnCalculateVat.UseVisualStyleBackColor = true;
+            this.btnCalculateVat.Click += BtnCalculateVat_Click;
             // 
             // pnlDrinks
             // 
@@ -478,6 +484,7 @@ namespace SomerenUI
             this.listViewDrinks.Size = new System.Drawing.Size(1093, 509);
             this.listViewDrinks.TabIndex = 7;
             this.listViewDrinks.UseCompatibleStateImageBehavior = false;
+            this.listViewDrinks.Click += listViewDrinks_Click;
             // 
             // tbDrinkId
             // 
@@ -527,6 +534,7 @@ namespace SomerenUI
             this.btnUpdateDrink.TabIndex = 10;
             this.btnUpdateDrink.Text = "Update Drink";
             this.btnUpdateDrink.UseVisualStyleBackColor = true;
+            this.btnUpdateDrink.Click += btnUpdateDrink_Click;
             // 
             // label1
             // 
@@ -595,6 +603,7 @@ namespace SomerenUI
             this.listViewStudentSimple.Size = new System.Drawing.Size(1093, 250);
             this.listViewStudentSimple.TabIndex = 4;
             this.listViewStudentSimple.UseCompatibleStateImageBehavior = false;
+            this.listViewStudentSimple.Click += ListViewStudentSimple_Click;
             // 
             // listViewDrinksSimple
             // 
@@ -605,6 +614,7 @@ namespace SomerenUI
             this.listViewDrinksSimple.Size = new System.Drawing.Size(1093, 250);
             this.listViewDrinksSimple.TabIndex = 4;
             this.listViewDrinksSimple.UseCompatibleStateImageBehavior = false;
+            this.listViewDrinksSimple.Click += ListViewDrinksSimple_Click;
             // 
             // pnlRooms
             // 
@@ -653,6 +663,7 @@ namespace SomerenUI
             this.btnCheckOut.TabIndex = 3;
             this.btnCheckOut.Text = "Checkout";
             this.btnCheckOut.UseVisualStyleBackColor = true;
+            this.btnCheckOut.Click += BtnCheckOut_Click;
             // 
             // SomerenUI
             // 

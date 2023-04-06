@@ -15,7 +15,7 @@ namespace SomerenDAL
     {
         public List<Drink> GetAllDrinks()
         {
-            string query = "SELECT * FROM Drinks AS D ORDER BY DrinkName";
+            string query = "SELECT * FROM Drink AS D ORDER BY DrinkName";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -30,7 +30,7 @@ namespace SomerenDAL
                 {
                     DrinkId = (int)dr["DrinkId"],
                     DrinkName = dr["DrinkName"].ToString(),
-                    Price = (decimal)dr["Price"],
+                    Price = (double)dr["Price"],
                     IsAlcoholic = (bool)dr["Is_Alcohol"],
                     Stock = (int)dr["Stock"],
                     TimesSold = (int)dr["TimesSold"]

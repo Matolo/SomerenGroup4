@@ -9,7 +9,7 @@ namespace SomerenModel
     public class Drink
     {
         public Drink() { }
-        public Drink(int DrinkId, string DrinkName, decimal Price, bool IsAlcoholic, int Stock) 
+        public Drink(int DrinkId, string DrinkName, float Price, bool IsAlcoholic, int Stock) 
         {
             this.DrinkId = DrinkId;
             this.DrinkName = DrinkName;
@@ -20,7 +20,7 @@ namespace SomerenModel
         }
         public int DrinkId { get; set; }
         public string DrinkName { get; set; }
-        public decimal Price { get; set; }
+        public double Price { get; set; }
         public bool IsAlcoholic { get; set; }
         public int Stock { get; set; }
         public int TimesSold { get; set; }

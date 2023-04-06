@@ -242,7 +242,6 @@ namespace SomerenUI
             listViewTeachers.Columns.Add("Phone Number");
             listViewTeachers.Columns.Add("Age");
             listViewTeachers.Columns.Add("Room ID");
-          //  listViewTeachers.Columns.Add("Supervisor");
 
             foreach (Teacher teacher in teachers)
             {
@@ -252,10 +251,6 @@ namespace SomerenUI
                 item.SubItems.Add(teacher.PhoneNumber.ToString());
                 item.SubItems.Add(teacher.Age.ToString());
                 item.SubItems.Add(teacher.RoomId.ToString());
-              //  if (teacher.isSupervisor)
-                 //   item.SubItems.Add("Yes");
-                //else
-                  //  item.SubItems.Add("No");
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
@@ -343,7 +338,7 @@ namespace SomerenUI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the drinks: " + e.Message);
             }
         }
         private List<Drink> GetDrinks()
@@ -406,7 +401,7 @@ namespace SomerenUI
             {
                 DrinkId = int.Parse(tbDrinkId.Text.ToString()),
                 DrinkName = tbDrinkName.Text.ToString(),
-                Price = int.Parse(tbPrice.Text.ToString()),
+                Price = float.Parse(tbPrice.Text.ToString()),
                 IsAlcoholic = isAlc,
                 Stock = int.Parse(tbStock.Text.ToString()),
                 TimesSold = 0
@@ -458,7 +453,7 @@ namespace SomerenUI
             {
                 DrinkId = int.Parse(tbDrinkId.Text.ToString()),
                 DrinkName = tbDrinkName.Text.ToString(),
-                Price = int.Parse(tbPrice.Text.ToString()),
+                Price = double.Parse(tbPrice.Text.ToString()),
                 IsAlcoholic = isAlc,
                 Stock = int.Parse(tbStock.Text.ToString()),
                 TimesSold = 0
@@ -483,7 +478,7 @@ namespace SomerenUI
             }
             catch (Exception e)
             {
-                MessageBox.Show("Something went wrong while loading the rooms: " + e.Message);
+                MessageBox.Show("Something went wrong while loading the cash register: " + e.Message);
             }
         }
 
