@@ -181,23 +181,24 @@ namespace SomerenUI
         }
         private void btnDeleteActivity_Click(object sender, System.EventArgs e)
         {
-            Activity activity = new Activity();
-
+            ActivityService activityService = new ActivityService();
             if (listViewActivities.SelectedItems.Count > 0)
             {
                 Activity selectedItem = listViewActivities.SelectedItems[0].Tag as Activity;
-
-                // if (selectedItem.TimesSold == 0)
-                //    drinkService.DeleteDrink(selectedItem.DrinkId);
-                //     DisplayDrinks(drinkService.GetDrinks());     
+                activityService.DeleteActivity(selectedItem.ActivityId);
+                DisplayActivities(activityService.GetActivities());
             }
         }
+        // if (selectedItem.TimesSold == 0)
+        //    drinkService.DeleteDrink(selectedItem.DrinkId);
+        //     DisplayDrinks(drinkService.GetDrinks());     
+    
         private void btnAddActivity_Click(object sender, System.EventArgs e)
         {
 
             Activity activity = new Activity()
             {
-                ActivityId = int.Parse(tbDrinkId.Text.ToString()),
+                ActivityId = int.Parse(txtActivityId.Text.ToString()),
                 Type = txtActivityName.Text.ToString(),
                 Date = DateTime.Parse(txtDate.Text.ToString()),
                 time = TimeSpan.Parse(txtStartTime.Text.ToString()),
