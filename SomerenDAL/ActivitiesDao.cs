@@ -26,7 +26,7 @@ namespace SomerenDAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                SomerenModel.Activity activity= new SomerenModel.Activity()
+                SomerenModel.Activity activity = new SomerenModel.Activity()
                 {
                     ActivityId = (int)dr["ActivityId"],
                     Type = dr["Type"].ToString(),
@@ -40,24 +40,39 @@ namespace SomerenDAL
         }
         public void DeleteActivity(int ActivityId)
         {
-            string query = $"DELETE FROM Activity WHERE ActivityId = {ActivityId}";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
+            string query = "DELETE FROM Activities WHERE ActivityId = @ActivityId";
+            SqlParameter[] sqlParameters = { new SqlParameter("@ActivityId", ActivityId) };
             ExecuteEditQuery(query, sqlParameters);
         }
+
         public void AddActivity(SomerenModel.Activity activity)
         {
-            string query = $"INSERT INTO Activities (ActivityId, Type, Date, BeginTime, EndTime)" +
-                $"VALUES ({activity.ActivityId}, '{activity.Type}', {activity.Date}, '{activity.time}', {activity.EndTime})";
+            string query = "INSERT INTO Activities (ActivityId, Type, Date, BeginTime, EndTime) VALUES (@ActivityId, @Type, @Date, @BeginTime, @EndTime)";
 
-            SqlParameter[] sqlParameters = new SqlParameter[0];
+            SqlParameter[] sqlParameters = {
+            new SqlParameter("@ActivityId", activity.ActivityId),
+            new SqlParameter("@Type", activity.Type),
+            new SqlParameter("@Date", activity.Date),
+            new SqlParameter("@BeginTime", activity.time),
+            new SqlParameter("@EndTime", activity.EndTime)
+            };
+
             ExecuteEditQuery(query, sqlParameters);
         }
         public void UpdateActivity(SomerenModel.Activity activity)
         {
-            string query = $"UPDATE Activity SET Type = '{activity.Type}', Date = {activity.Date}, time = '{activity.time}', EndTime = {activity.EndTime} WHERE ActivityId = {activity.ActivityId}";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
+            string query = "UPDATE Activities SET Type = @Type, Date = @Date, BeginTime = @BeginTime, EndTime = @EndTime WHERE ActivityId = @ActivityId";
+
+            SqlParameter[] sqlParameters = {
+            new SqlParameter("@ActivityId", activity.ActivityId),
+            new SqlParameter("@Type", activity.Type),
+            new SqlParameter("@Date", activity.Date),
+            new SqlParameter("@BeginTime", activity.time),
+            new SqlParameter("@EndTime", activity.EndTime)
+            };
+
             ExecuteEditQuery(query, sqlParameters);
         }
-     
+
     }
 }
