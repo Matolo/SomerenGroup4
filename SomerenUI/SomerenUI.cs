@@ -677,6 +677,35 @@ namespace SomerenUI
             listViewParticipants.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
+        private List<Student> GetNonParticipants(Activity activity)
+        {
+            ParticipantsService participantsService = new ParticipantsService();
+            List<Student> students = participantsService.GetNonParticipants(activity);
+            return students;
+        }
+        public void DisplayNonParticipants(List<Student> students)
+        {
+            // clear the listview before filling it
+            listViewNonParticipants.Clear();
+
+            listViewNonParticipants.View = View.Details;
+            listViewNonParticipants.Columns.Add("Student ID");
+            listViewNonParticipants.Columns.Add("First Name");
+            listViewNonParticipants.Columns.Add("Last Name");
+
+            foreach (Student student in students)
+            {
+
+                ListViewItem item = new ListViewItem(student.StudentId.ToString());
+                item.SubItems.Add(student.FirstName);
+                item.SubItems.Add(student.LastName);
+
+                item.Tag = student;
+                listViewNonParticipants.Items.Add(item);
+            }
+            listViewNonParticipants.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+
+        }
         // private void listViewStudents_SelectedIndexChanged(object sender, EventArgs e)
         private void activityParticipantsToolStripMenuItem_Click(object sender, System.EventArgs e)
         {
@@ -685,8 +714,8 @@ namespace SomerenUI
         public void ShowActivityParticipantsPanel()
         {
             NewTab(pnlActivitiesParticipants, "Participants");
-/*            listViewParticipants.Hide();
-*/
+            /*            listViewParticipants.Hide();
+            */
             try
             {
                 // get and display all activities
@@ -700,24 +729,48 @@ namespace SomerenUI
         }
         private void ListViewActivitiesSimple_Click(object sender, EventArgs e)
         {
-            Activity selectedActivity;
 
-            selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
-            
+            Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
+
             try
             {
                 List<Student> participants = GetParticipants(selectedActivity);
+                List<Student> nonParticipants = GetNonParticipants(selectedActivity);
                 DisplayParticipants(participants);
+                DisplayNonParticipants(nonParticipants);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong while loading the cash register: " + ex.Message);
+                MessageBox.Show("Something went wrong while loading the participants: " + ex.Message);
             }
         }
+
+
         private void PnlActivitiesParticipants_Click(object sender, EventArgs e)
         {
+
+        }
+        private void ListViewNonParticipants_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void BtnAddParticipant_Click(object sender, EventArgs e)
+        {
+            ParticipantsService participantsService = new ParticipantsService();
+            Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
+            Student selectedStudent = listViewNonParticipants.SelectedItems[0].Tag as Student;
+            participantsService.AddParticipant(selectedActivity, selectedStudent);
+            ShowActivityParticipantsPanel();
         }
 
+        private void BtnRemoveParticipant_Click(object sender, EventArgs e)
+        {
+            ParticipantsService participantsService = new ParticipantsService();
+            Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
+            Student selectedStudent = listViewParticipants.SelectedItems[0].Tag as Student;
+            participantsService.RemoveParticipant(selectedActivity, selectedStudent);
+            ShowActivityParticipantsPanel();
+        }
     }
 }
 

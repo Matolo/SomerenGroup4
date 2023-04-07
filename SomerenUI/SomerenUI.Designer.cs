@@ -83,7 +83,11 @@ namespace SomerenUI
             tbStock = new System.Windows.Forms.TextBox();
             btnUpdateDrink = new System.Windows.Forms.Button();
             pnlActivitiesParticipants = new System.Windows.Forms.Panel();
+            lblParticipants = new System.Windows.Forms.Label();
+            lblNonParticipants = new System.Windows.Forms.Label();
             listViewActivitiesSimple = new System.Windows.Forms.ListView();
+            listViewParticipants = new System.Windows.Forms.ListView();
+            listViewNonParticipants = new System.Windows.Forms.ListView();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachers = new System.Windows.Forms.ListView();
@@ -96,7 +100,8 @@ namespace SomerenUI
             pnlCashRegister = new System.Windows.Forms.Panel();
             lblAmountToPay = new System.Windows.Forms.Label();
             btnCheckOut = new System.Windows.Forms.Button();
-            listViewParticipants = new System.Windows.Forms.ListView();
+            btnRemoveParticipant = new System.Windows.Forms.Button();
+            btnAddParticipant = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
@@ -540,14 +545,37 @@ namespace SomerenUI
             // 
             // pnlActivitiesParticipants
             // 
+            pnlActivitiesParticipants.Controls.Add(btnRemoveParticipant);
+            pnlActivitiesParticipants.Controls.Add(btnAddParticipant);
+            pnlActivitiesParticipants.Controls.Add(lblParticipants);
+            pnlActivitiesParticipants.Controls.Add(lblNonParticipants);
             pnlActivitiesParticipants.Controls.Add(listViewActivitiesSimple);
             pnlActivitiesParticipants.Controls.Add(listViewParticipants);
+            pnlActivitiesParticipants.Controls.Add(listViewNonParticipants);
             pnlActivitiesParticipants.Location = new System.Drawing.Point(18, 45);
             pnlActivitiesParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             pnlActivitiesParticipants.Name = "pnlActivitiesParticipants";
             pnlActivitiesParticipants.Size = new System.Drawing.Size(1340, 778);
             pnlActivitiesParticipants.TabIndex = 5;
             pnlActivitiesParticipants.Click += PnlActivitiesParticipants_Click;
+            // 
+            // lblParticipants
+            // 
+            lblParticipants.AutoSize = true;
+            lblParticipants.Location = new System.Drawing.Point(20, 350);
+            lblParticipants.Name = "lblParticipants";
+            lblParticipants.Size = new System.Drawing.Size(102, 25);
+            lblParticipants.TabIndex = 3;
+            lblParticipants.Text = "Participants";
+            // 
+            // lblNonParticipants
+            // 
+            lblNonParticipants.AutoSize = true;
+            lblNonParticipants.Location = new System.Drawing.Point(650, 350);
+            lblNonParticipants.Name = "lblNonParticipants";
+            lblNonParticipants.Size = new System.Drawing.Size(137, 25);
+            lblNonParticipants.TabIndex = 13;
+            lblNonParticipants.Text = "Not Participants";
             // 
             // listViewActivitiesSimple
             // 
@@ -560,6 +588,29 @@ namespace SomerenUI
             listViewActivitiesSimple.TabIndex = 11;
             listViewActivitiesSimple.UseCompatibleStateImageBehavior = false;
             listViewActivitiesSimple.Click += ListViewActivitiesSimple_Click;
+            // 
+            // listViewParticipants
+            // 
+            listViewParticipants.FullRowSelect = true;
+            listViewParticipants.GridLines = true;
+            listViewParticipants.Location = new System.Drawing.Point(19, 400);
+            listViewParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewParticipants.Name = "listViewParticipants";
+            listViewParticipants.Size = new System.Drawing.Size(550, 250);
+            listViewParticipants.TabIndex = 12;
+            listViewParticipants.UseCompatibleStateImageBehavior = false;
+            // 
+            // listViewNonParticipants
+            // 
+            listViewNonParticipants.FullRowSelect = true;
+            listViewNonParticipants.GridLines = true;
+            listViewNonParticipants.Location = new System.Drawing.Point(650, 400);
+            listViewNonParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            listViewNonParticipants.Name = "listViewNonParticipants";
+            listViewNonParticipants.Size = new System.Drawing.Size(550, 250);
+            listViewNonParticipants.TabIndex = 14;
+            listViewNonParticipants.UseCompatibleStateImageBehavior = false;
+            listViewNonParticipants.Click += ListViewNonParticipants_Click;
             // 
             // label1
             // 
@@ -691,16 +742,25 @@ namespace SomerenUI
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
             // 
-            // listViewParticipants
+            // btnRemoveParticipant
             // 
-            listViewParticipants.FullRowSelect = true;
-            listViewParticipants.GridLines = true;
-            listViewParticipants.Location = new System.Drawing.Point(19, 300);
-            listViewParticipants.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            listViewParticipants.Name = "listViewParticipants";
-            listViewParticipants.Size = new System.Drawing.Size(1093, 250);
-            listViewParticipants.TabIndex = 12;
-            listViewParticipants.UseCompatibleStateImageBehavior = false;
+            btnRemoveParticipant.Location = new System.Drawing.Point(133, 696);
+            btnRemoveParticipant.Name = "btnRemoveParticipant";
+            btnRemoveParticipant.Size = new System.Drawing.Size(112, 34);
+            btnRemoveParticipant.TabIndex = 3;
+            btnRemoveParticipant.Text = "Remove";
+            btnRemoveParticipant.UseVisualStyleBackColor = true;
+            btnRemoveParticipant.Click += BtnRemoveParticipant_Click;
+            // 
+            // btnAddParticipant
+            // 
+            btnAddParticipant.Location = new System.Drawing.Point(741, 696);
+            btnAddParticipant.Name = "btnAddParticipant";
+            btnAddParticipant.Size = new System.Drawing.Size(112, 34);
+            btnAddParticipant.TabIndex = 4;
+            btnAddParticipant.Text = "Add";
+            btnAddParticipant.UseVisualStyleBackColor = true;
+            btnAddParticipant.Click += BtnAddParticipant_Click;
             // 
             // SomerenUI
             // 
@@ -732,6 +792,7 @@ namespace SomerenUI
             pnlDrinks.ResumeLayout(false);
             pnlDrinks.PerformLayout();
             pnlActivitiesParticipants.ResumeLayout(false);
+            pnlActivitiesParticipants.PerformLayout();
             pnlTeachers.ResumeLayout(false);
             pnlActivities.ResumeLayout(false);
             pnlActivities.PerformLayout();
@@ -741,6 +802,7 @@ namespace SomerenUI
             ResumeLayout(false);
             PerformLayout();
         }
+
 
 
         #endregion
@@ -809,5 +871,10 @@ namespace SomerenUI
         private System.Windows.Forms.ToolStripMenuItem activityParticipantsToolStripMenuItem;
         private System.Windows.Forms.ListView listViewActivitiesSimple;
         private System.Windows.Forms.ListView listViewParticipants;
+        private System.Windows.Forms.Label lblParticipants;
+        private System.Windows.Forms.Label lblNonParticipants;
+        private System.Windows.Forms.ListView listViewNonParticipants;
+        private System.Windows.Forms.Button btnRemoveParticipant;
+        private System.Windows.Forms.Button btnAddParticipant;
     }
 }
