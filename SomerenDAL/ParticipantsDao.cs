@@ -13,14 +13,13 @@ namespace SomerenDAL
     { 
         public List<Student> GetAllParticipants(Activity activity)
         {
-            //CHANGE THE QUERIES SO THERE ISN'T * ANYWHERE 
-            string query = $"SELECT * FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId}";
+            string query = $"SELECT Students.StudentId, FirstName, LastName FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId}";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
         public List<Student> GetNonParticipants(Activity activity)
         {
-            string query = $"SELECT * FROM Students WHERE Students.StudentId NOT IN (SELECT Students.StudentId FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId})";
+            string query = $"SELECT Students.StudentId, FirstName, LastName FROM Students WHERE Students.StudentId NOT IN (SELECT Students.StudentId FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId})";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -34,8 +33,6 @@ namespace SomerenDAL
                     StudentId = (int)dr["StudentId"],
                     FirstName = dr["FirstName"].ToString(),
                     LastName = dr["LastName"].ToString(),
-                    PhoneNumber = dr["PhoneNumber"].ToString(),
-                    RoomId = (int)dr["RoomId"],
                 };
                 students.Add(student);
             }
@@ -43,17 +40,15 @@ namespace SomerenDAL
         }
         public void AddParticipant(Activity activity, Student student)
         {
-            string query = $"INSERT INTO Participant (StudentId, ActivityId) VALUES ({student.StudentId}, {activity.ActivityId})" +
-                $"SELECT * FROM Participant"; //idk why I have to do this everytime I instert something
+            string query = $"INSERT INTO Participant (StudentId, ActivityId) VALUES ({student.StudentId}, {activity.ActivityId})";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-            ExecuteSelectQuery(query, sqlParameters);
+            ExecuteEditQuery(query, sqlParameters);
         }
         public void RemoveParticipant(Activity activity, Student student)
         {
-            string query = $"DELETE FROM Participant WHERE StudentId = {student.StudentId}" +
-                $"SELECT * FROM Participant";
+            string query = $"DELETE FROM Participant WHERE StudentId = {student.StudentId}";
             SqlParameter[] sqlParameters = new SqlParameter[0];
-            ExecuteSelectQuery(query, sqlParameters);
+            ExecuteEditQuery(query, sqlParameters);
         }
     }
 }
