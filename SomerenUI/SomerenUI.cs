@@ -615,17 +615,17 @@ namespace SomerenUI
             listViewActivitySupervisors.Columns.Add("Teacher ID");
             listViewActivitySupervisors.Columns.Add("First Name");
             listViewActivitySupervisors.Columns.Add("Last Name");
-            //listViewActivitySupervisors.Columns.Add("isSupervisor");
+            listViewActivitySupervisors.Columns.Add("isSupervisor");
 
             foreach (Teacher teacher in teachers)
             {
                 ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
                 item.SubItems.Add(teacher.FirstName);
                 item.SubItems.Add(teacher.LastName);
-                //if (teacher.isSupervisor)
-                //    item.SubItems.Add("Yes");
-                //else
-                //    item.SubItems.Add("No");
+                if (teacher.isSupervisor)
+                    item.SubItems.Add("Yes");
+                else
+                   item.SubItems.Add("No");
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
@@ -650,12 +650,22 @@ namespace SomerenUI
             teacherService.AddTeacher(newSupervisor);
             DisplaySimpleSupervisors(teacherService.GetTeachers());
 
-            
+
         }
 
         private void btnRemoveSupervisors_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewActivitySupervisors_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ShowActivitiesPanel();
         }
 
         /// <summary>

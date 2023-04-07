@@ -8,29 +8,33 @@ using System.Threading.Tasks;
 
 namespace SomerenService
 {
-    public class ActivitySupervisorsService
+    public class ActivitySupervisorService
     {
-        private ActivitySupervisorsDao activitySupervisorsdb;
+        private ActivitySupervisorsDao supervisorsdb;
 
-        public ActivitySupervisorsService()
+        public ActivitySupervisorService()
         {
-            activitySupervisorsdb = new ActivitySupervisorsDao();
-        }
-
-        public List<Teacher> GetTeachers()
-        {
-            List<Teacher> teachers = activitySupervisorsdb.GetAllSupervisors();
-            return teachers;
+            supervisorsdb = new ActivitySupervisorsDao();
         }
 
-        public void DeleteTeacher(int TeacherId)
+        public List<Teacher> GetSupervisors(Activity selectedActivity)
         {
-            activitySupervisorsdb.DeleteSupervisor(TeacherId);
+            List<Teacher> supervisors = supervisorsdb.GetSupervisors(selectedActivity);
+            return supervisors;
         }
-        public void AddTeacher(Teacher teacher)
+        public List<Teacher> GetNotSupervisors(Activity selectedActivity, List<Teacher> supervisors)
         {
-            activitySupervisorsdb.AddSupervisor(teacher);
+            List<Teacher> notSupervisors = supervisorsdb.GetNotSupervisors(selectedActivity, supervisors);
+            return notSupervisors;
         }
-      
+        public void AddSupervisor(Activity selectedActivity, Teacher selectedTeacher)
+        {
+            supervisorsdb.AddSupervisor(selectedActivity, selectedTeacher);
+        }
+        public void DeleteSupervisor(Activity selectedActivity, Teacher selectedTeacher)
+        {
+            supervisorsdb.DeleteSupervisor(selectedActivity, selectedTeacher);
+        }
+
     }
 }

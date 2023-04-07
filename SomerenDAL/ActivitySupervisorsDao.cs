@@ -11,46 +11,96 @@ namespace SomerenDAL
 {
     public class ActivitySupervisorsDao:BaseDao
     {
-        public List<ActivitySupervisors> GetAllSupervisors()
+        public List<Teacher> GetSupervisors(Activity selectedActivity)
         {
-            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId FROM Lecturer";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
-            return ReadTables(ExecuteSelectQuery(query, sqlParameters));
+            string query = "SELECT SupervisorId FROM ActivitySupervisor WHERE ActivityId = @ActivityId";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@ActivityId", selectedActivity.ActivityId)
+            };
+            return AddSupervisorList(ExecuteSelectQuery(query, sqlParameters));
         }
-       // public List<ActivitySupervisors> GetActivitiys()
-       // {
-
-       // }
-       private List<ActivitySupervisors> ReadTables(DataTable dataTable)
+        public List<Teacher> GetNotSupervisors(Activity selectedActivity, List<Teacher> supervisors)
         {
-            List<ActivitySupervisors> activitiesSupervisors = new List<ActivitySupervisors>();
+            string query = "SELECT LecturerId FROM Lecturer ";
+            ///Creating a SQL line
+            if (supervisors.Capacity > 0)
+            {
+                bool firstSupervisor = false;
+                query += "WHERE ";
+                foreach (Teacher supervisor in supervisors)
+                {
+                    if (firstSupervisor)
+                    {
+                        query += " AND ";
+                    }
+                    else
+                        firstSupervisor = true;
+                    query += $"LecturerId != {supervisor.TeacherId}";
+                }
+            }
+            //---
+            SqlParameter[] sqlParameters = new SqlParameter[0];
+            return AddNotSupervisorList(ExecuteSelectQuery(query, sqlParameters));
+        }
+        private List<Teacher> AddSupervisorList(DataTable dataTable)
+        {
+            List<Teacher> supervisors = new List<Teacher>();
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                ActivitySupervisors activitySupervisor = new ActivitySupervisors()
-                {
-                    TeacherID = (int)dr["LectureId"],
-                    FirstName = dr["FirstName"].ToString(),
-                    LastName = dr["LastName"].ToString(),
-                    isSupervisors = (bool)dr["isSupervisor"]
-                };
-                activitiesSupervisors.Add(activitySupervisor);
+                supervisors.Add(GetLecturerById((int)dr["SupervisorId"]));
             }
-            return activitiesSupervisors;
+            return supervisors;
         }
-        public void AddSupervisor(Teacher teacher)
+        private List<Teacher> AddNotSupervisorList(DataTable dataTable)
         {
-            string query = $"INSERT INTO Teacher (TeacherID, FirstName, LastName, Supervisor)" +
-                $"VALUES ({teacher.TeacherId}, '{teacher.FirstName}', {teacher.LastName}, '{teacher.isSupervisor}')";
+            List<Teacher> supervisors = new List<Teacher>();
 
-            SqlParameter[] sqlParameters = new SqlParameter[0];
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                supervisors.Add(GetLecturerById((int)dr["LecturerId"]));
+            }
+            return supervisors;
+        }
+        public Teacher GetLecturerById(int id)
+        {
+            string query = "SELECT LecturerId, [First Name], [Last Name],  IsSupervisor FROM [Lecturers] WHERE LecturerId = @LecturerId";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@LecturerId", id)
+            };
+            Teacher teacher = new Teacher();
+            foreach (DataRow dr in ExecuteSelectQuery(query, sqlParameters).Rows)
+            {
+                teacher.TeacherId = (int)dr["LecturerId"];
+                teacher.FirstName = dr["First Name"].ToString();
+                teacher.LastName = dr["Last Name"].ToString();
+                teacher.isSupervisor = (bool)dr["IsSupervisor"];
+            }
+            return teacher;
+        }
+        public void AddSupervisor(Activity selectedActivity, Teacher selectedTeacher)
+        {
+            string query = "INSERT INTO ActivitySupervisor (SupervisorId, ActivityId) " +
+                           "VALUES (@SupervisorId, @ActivityId)";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                new SqlParameter("@SupervisorId", selectedTeacher.TeacherId),
+                new SqlParameter("@ActivityId", selectedActivity.ActivityId)
+            };
             ExecuteEditQuery(query, sqlParameters);
 
         }
-        public void DeleteSupervisor(int TeacherID)
+        public void DeleteSupervisor(Activity selectedActivity, Teacher selectedTeacher)
         {
-            string query = $"DELETE FROM Teacher WHERE TeacherID = {TeacherID}";
-            SqlParameter[] sqlParameters = new SqlParameter[0];
+            string query = "DELETE FROM ActivitySupervisor WHERE SupervisorId = @SupervisorId AND ActivityId = @ActivityId";
+            SqlParameter[] sqlParameters = new SqlParameter[]
+            {
+                 new SqlParameter("@SupervisorId", selectedTeacher.TeacherId),
+                 new SqlParameter("@ActivityId", selectedActivity.ActivityId)
+
+            };
             ExecuteEditQuery(query, sqlParameters);
         }
     }
