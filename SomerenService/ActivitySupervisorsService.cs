@@ -17,23 +17,23 @@ namespace SomerenService
             supervisorsdb = new ActivitySupervisorsDao();
         }
 
-        public List<Teacher> GetSupervisors(Activity selectedActivity)
+        public List<Teacher> GetSupervisors(int id)
         {
-            List<Teacher> supervisors = supervisorsdb.GetSupervisors(selectedActivity);
+            List<Teacher> supervisors = supervisorsdb.GetSupervisorById(id);
             return supervisors;
         }
-        public List<Teacher> GetNotSupervisors(Activity selectedActivity, List<Teacher> supervisors)
+        public List<Teacher> GetNotSupervisors(int id)
         {
-            List<Teacher> notSupervisors = supervisorsdb.GetNotSupervisors(selectedActivity, supervisors);
+            List<Teacher> notSupervisors = supervisorsdb.GetLecturersNotSupervising(id);
             return notSupervisors;
         }
-        public void AddSupervisor(Activity selectedActivity, Teacher selectedTeacher)
+        public void AddSupervisor(ActivitySupervisors supervisor, int id)
         {
-            supervisorsdb.AddSupervisor(selectedActivity, selectedTeacher);
+            supervisorsdb.AddSupervisors(supervisor,id);
         }
-        public void DeleteSupervisor(Activity selectedActivity, Teacher selectedTeacher)
+        public void DeleteSupervisor(int lecturerId, int id)
         {
-            supervisorsdb.DeleteSupervisor(selectedActivity, selectedTeacher);
+            supervisorsdb.DeleteSupervisor(lecturerId, id);
         }
 
     }

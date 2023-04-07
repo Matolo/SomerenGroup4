@@ -11,5 +11,7 @@ namespace SomerenModel
         public int Age { get; set; }
         public int RoomId { get; set; }
         public bool isSupervisor { get; set; }
+
+        public int ActivityId { get; set; }
     }
 }

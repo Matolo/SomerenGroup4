@@ -596,10 +596,13 @@ namespace SomerenUI
 
             try
             {
-                //get and display all teachers
-                List<Teacher> teachers = GetTeachers();
+                Activity activity = new Activity();
                 List<Activity> activities = GetActivities();
-                DisplaySimpleSupervisors(teachers);
+                List<Teacher> supervisors = GetSupervisors(activity);
+                List<Teacher> teachers = GetNotSupervisors(activity);
+               
+                
+                DisplaySimpleSupervisors(supervisors);
                 DisplaySimpleNotSupervisors(teachers);
                 DisplaySimpleActivitySupervisors(activities);
             }
@@ -608,7 +611,7 @@ namespace SomerenUI
                 MessageBox.Show("Something went wrong while loading the supervisors: " + e.Message);
             }
         }
-        private void DisplaySimpleSupervisors(List<Teacher> teachers)
+        private void DisplaySimpleSupervisors(List<Teacher> Supervisors)
         {
             listViewActivitySupervisors.Clear();
 
@@ -616,28 +619,24 @@ namespace SomerenUI
             listViewActivitySupervisors.Columns.Add("Lecturer ID");
             listViewActivitySupervisors.Columns.Add("First Name");
             listViewActivitySupervisors.Columns.Add("Last Name");
-            //listViewActivitySupervisors.Columns.Add("isSupervisor");
+           
 
-            foreach (Teacher teacher in teachers)
+            foreach (Teacher supervisor in Supervisors)
             {
-                if (teacher.isSupervisor)
+                if (supervisor.ActivityId == ((Activity)listViewActivitySupervisor.SelectedItems[0].Tag).ActivityId)
                 {
-                    ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
-                    item.SubItems.Add(teacher.FirstName);
-                    item.SubItems.Add(teacher.LastName);
-                    item.Tag = teacher;
+                    ListViewItem item = new ListViewItem(supervisor.TeacherId.ToString());
+                    item.SubItems.Add(supervisor.FirstName);
+                    item.SubItems.Add(supervisor.LastName);
+                    item.Tag = supervisor;
                     listViewActivitySupervisors.Items.Add(item);
 
-                }
-
-
-
-
+               }
             }
             listViewActivitySupervisors.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
 
         }
-        private void DisplaySimpleNotSupervisors(List<Teacher> teachers)
+        private void DisplaySimpleNotSupervisors(List<Teacher> notSupervisors)
         {
             listViewNotSupervisor.Clear();
 
@@ -645,11 +644,11 @@ namespace SomerenUI
             listViewNotSupervisor.Columns.Add("Lecturer ID");
             listViewNotSupervisor.Columns.Add("First Name");
             listViewNotSupervisor.Columns.Add("Last Name");
-            //listViewActivitySupervisors.Columns.Add("isSupervisor");
+           
 
-            foreach (Teacher teacher in teachers)
+            foreach (Teacher teacher in notSupervisors)
             {
-                if (teacher.isSupervisor == false)
+                if (teacher.ActivityId == ((Activity)listViewActivitySupervisor.SelectedItems[0].Tag).ActivityId)
                 {
                     ListViewItem item = new ListViewItem(teacher.TeacherId.ToString());
                     item.SubItems.Add(teacher.FirstName);
@@ -690,53 +689,41 @@ namespace SomerenUI
         {
             ShowSupervisorsPanel();
         }
-        //private void AddBtn_Click(object sender, EventArgs e)
-        //{
-        //    Activity selectedActivity = (Activity)listParticipantsActivities.SelectedItems[0].Tag;
-
-        //    ActivityParticipants participant = new ActivityParticipants()
-        //    {
-        //        ParticipantId = int.Parse(txtStudentIdParticipants.Text),
-        //        ActivityId = selectedActivity.Id
-
-        //    };
-        //    participantService.AddParticipants(participant, selectedActivity);
-
-        //}
+        
         private List<Teacher> GetSupervisors(Activity activity)
         {
             ActivitySupervisorService supervisorService = new ActivitySupervisorService();
-            return supervisorService.GetSupervisors(activity);
+            return supervisorService.GetSupervisors(activity.ActivityId);
         }
-        private List<Teacher> GetNotSupervisors(Activity activity, List<Teacher> supervisors)
+        private List<Teacher> GetNotSupervisors(Activity activity)
         {
             ActivitySupervisorService supervisorService = new ActivitySupervisorService();
-            return supervisorService.GetNotSupervisors(activity, supervisors);
+            return supervisorService.GetNotSupervisors(activity.ActivityId);
         }
         ActivitySupervisorService activitySupervisorService = new ActivitySupervisorService();
+
+
+
         private void btnAddSupervisor_Click(object sender, EventArgs e)
         {
             Activity activity = (Activity)listViewActivitySupervisor.SelectedItems[0].Tag;
             Teacher teacher = (Teacher)listViewNotSupervisor.SelectedItems[0].Tag;
-            //ActivitySupervisors supervisor = new ActivitySupervisors()
-            //{
-            //    TeacherID =teacher.TeacherId,
+            ActivitySupervisors supervisor = new ActivitySupervisors()
+            {
+                TeacherID = teacher.TeacherId,
+                ActivityID= activity.ActivityId
 
-            //};
-            activitySupervisorService.AddSupervisor(activity, teacher);
+            };
+            activitySupervisorService.AddSupervisor(supervisor,activity.ActivityId);
 
-            List<Teacher> supervisors = GetSupervisors(activity);
+            //List<ActivitySupervisors> supervisors = GetSupervisors(activity);
             //DisplaySimpleActivitySupervisors(supervisors, listViewActivitySupervisors);
             //DisplaySimpleActivitySupervisors(GetNotSupervisors(activity, supervisors), listViewNotSupervisor);
 
 
         }
 
-        //supervisorService.AddSupervisor(selectedActivity, selectedTeacher);
-
-        //        List<Teacher> supervisors = GetSupervisors(selectedActivity);
-        //DisplayLecturers(supervisors, listSupervisorsSupervisors);
-        //DisplayLecturers(GetNotSupervisors(selectedActivity, supervisors), listSupervisorsNotSupervisors);
+       
 
         private void btnRemoveSupervisors_Click(object sender, EventArgs e)
         {
