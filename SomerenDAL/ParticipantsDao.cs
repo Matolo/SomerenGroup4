@@ -19,7 +19,7 @@ namespace SomerenDAL
         }
         public List<Student> GetNonParticipants(Activity activity)
         {
-            string query = $"SELECT * FROM Participant LEFT JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId != {activity.ActivityId}";
+            string query = $"SELECT * FROM Students WHERE Students.StudentId NOT IN (SELECT Students.StudentId FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId})";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }

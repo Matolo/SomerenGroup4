@@ -760,7 +760,17 @@ namespace SomerenUI
             Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
             Student selectedStudent = listViewNonParticipants.SelectedItems[0].Tag as Student;
             participantsService.AddParticipant(selectedActivity, selectedStudent);
-            ShowActivityParticipantsPanel();
+            try
+            {
+                List<Student> participants = GetParticipants(selectedActivity);
+                List<Student> nonParticipants = GetNonParticipants(selectedActivity);
+                DisplayParticipants(participants);
+                DisplayNonParticipants(nonParticipants);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while loading the participants: " + ex.Message);
+            }
         }
 
         private void BtnRemoveParticipant_Click(object sender, EventArgs e)
@@ -769,7 +779,17 @@ namespace SomerenUI
             Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
             Student selectedStudent = listViewParticipants.SelectedItems[0].Tag as Student;
             participantsService.RemoveParticipant(selectedActivity, selectedStudent);
-            ShowActivityParticipantsPanel();
+            try
+            {
+                List<Student> participants = GetParticipants(selectedActivity);
+                List<Student> nonParticipants = GetNonParticipants(selectedActivity);
+                DisplayParticipants(participants);
+                DisplayNonParticipants(nonParticipants);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while loading the participants: " + ex.Message);
+            }
         }
     }
 }
