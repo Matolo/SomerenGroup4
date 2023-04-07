@@ -72,6 +72,16 @@ namespace SomerenUI
             tbIsAlcohol = new System.Windows.Forms.TextBox();
             tbStock = new System.Windows.Forms.TextBox();
             btnUpdateDrink = new System.Windows.Forms.Button();
+            pnlActivitySupervisors = new System.Windows.Forms.Panel();
+            label4 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            listViewActivitySupervisor = new System.Windows.Forms.ListView();
+            listViewNotSupervisor = new System.Windows.Forms.ListView();
+            pictureBox2 = new System.Windows.Forms.PictureBox();
+            listViewActivitySupervisors = new System.Windows.Forms.ListView();
+            btnRemoveSupervisors = new System.Windows.Forms.Button();
+            btnAddSupervisor = new System.Windows.Forms.Button();
             label1 = new System.Windows.Forms.Label();
             pnlTeachers = new System.Windows.Forms.Panel();
             listViewTeachers = new System.Windows.Forms.ListView();
@@ -84,28 +94,18 @@ namespace SomerenUI
             pnlCashRegister = new System.Windows.Forms.Panel();
             lblAmountToPay = new System.Windows.Forms.Label();
             btnCheckOut = new System.Windows.Forms.Button();
-            pnlActivitySupervisors = new System.Windows.Forms.Panel();
-            listView2 = new System.Windows.Forms.ListView();
-            listView1 = new System.Windows.Forms.ListView();
-            textBox2 = new System.Windows.Forms.TextBox();
-            textBox1 = new System.Windows.Forms.TextBox();
-            textBox3 = new System.Windows.Forms.TextBox();
-            pictureBox2 = new System.Windows.Forms.PictureBox();
-            listViewActivitySupervisors = new System.Windows.Forms.ListView();
-            btnRemoveSupervisors = new System.Windows.Forms.Button();
-            btnAddSupervisor = new System.Windows.Forms.Button();
             menuStrip1.SuspendLayout();
             pnlDashboard.SuspendLayout();
             pnlStudents.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlVat.SuspendLayout();
             pnlDrinks.SuspendLayout();
+            pnlActivitySupervisors.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             pnlTeachers.SuspendLayout();
             pnlActivities.SuspendLayout();
             pnlRooms.SuspendLayout();
             pnlCashRegister.SuspendLayout();
-            pnlActivitySupervisors.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -466,6 +466,113 @@ namespace SomerenUI
             btnUpdateDrink.UseVisualStyleBackColor = true;
             btnUpdateDrink.Click += btnUpdateDrink_Click;
             // 
+            // pnlActivitySupervisors
+            // 
+            pnlActivitySupervisors.Controls.Add(label4);
+            pnlActivitySupervisors.Controls.Add(label3);
+            pnlActivitySupervisors.Controls.Add(label2);
+            pnlActivitySupervisors.Controls.Add(listViewActivitySupervisor);
+            pnlActivitySupervisors.Controls.Add(listViewNotSupervisor);
+            pnlActivitySupervisors.Controls.Add(pictureBox2);
+            pnlActivitySupervisors.Controls.Add(listViewActivitySupervisors);
+            pnlActivitySupervisors.Controls.Add(btnRemoveSupervisors);
+            pnlActivitySupervisors.Controls.Add(btnAddSupervisor);
+            pnlActivitySupervisors.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            pnlActivitySupervisors.Location = new System.Drawing.Point(0, 0);
+            pnlActivitySupervisors.Name = "pnlActivitySupervisors";
+            pnlActivitySupervisors.Size = new System.Drawing.Size(1076, 635);
+            pnlActivitySupervisors.TabIndex = 3;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(534, 364);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(287, 54);
+            label4.TabIndex = 14;
+            label4.Text = "Not Supervisor";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new System.Drawing.Point(534, 89);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(209, 54);
+            label3.TabIndex = 13;
+            label3.Text = "Supervisor";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            label2.Location = new System.Drawing.Point(9, 24);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(153, 54);
+            label2.TabIndex = 12;
+            label2.Text = "Activity";
+            // 
+            // listViewActivitySupervisor
+            // 
+            listViewActivitySupervisor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            listViewActivitySupervisor.Location = new System.Drawing.Point(6, 81);
+            listViewActivitySupervisor.Name = "listViewActivitySupervisor";
+            listViewActivitySupervisor.Size = new System.Drawing.Size(522, 367);
+            listViewActivitySupervisor.TabIndex = 11;
+            listViewActivitySupervisor.UseCompatibleStateImageBehavior = false;
+            listViewActivitySupervisor.SelectedIndexChanged += listViewActivitySupervisor_SelectedIndexChanged;
+            // 
+            // listViewNotSupervisor
+            // 
+            listViewNotSupervisor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            listViewNotSupervisor.Location = new System.Drawing.Point(534, 421);
+            listViewNotSupervisor.Name = "listViewNotSupervisor";
+            listViewNotSupervisor.Size = new System.Drawing.Size(509, 173);
+            listViewNotSupervisor.TabIndex = 10;
+            listViewNotSupervisor.UseCompatibleStateImageBehavior = false;
+            listViewNotSupervisor.SelectedIndexChanged += listViewNotSupervisor_SelectedIndexChanged;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Image = Properties.Resources.someren;
+            pictureBox2.Location = new System.Drawing.Point(940, 29);
+            pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new System.Drawing.Size(136, 128);
+            pictureBox2.TabIndex = 3;
+            pictureBox2.TabStop = false;
+            // 
+            // listViewActivitySupervisors
+            // 
+            listViewActivitySupervisors.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            listViewActivitySupervisors.Location = new System.Drawing.Point(534, 155);
+            listViewActivitySupervisors.Name = "listViewActivitySupervisors";
+            listViewActivitySupervisors.Size = new System.Drawing.Size(509, 206);
+            listViewActivitySupervisors.TabIndex = 6;
+            listViewActivitySupervisors.UseCompatibleStateImageBehavior = false;
+            listViewActivitySupervisors.SelectedIndexChanged += listViewActivitySupervisors_SelectedIndexChanged;
+            // 
+            // btnRemoveSupervisors
+            // 
+            btnRemoveSupervisors.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnRemoveSupervisors.Location = new System.Drawing.Point(217, 511);
+            btnRemoveSupervisors.Name = "btnRemoveSupervisors";
+            btnRemoveSupervisors.Size = new System.Drawing.Size(174, 29);
+            btnRemoveSupervisors.TabIndex = 5;
+            btnRemoveSupervisors.Text = "Remove Supervisors";
+            btnRemoveSupervisors.UseVisualStyleBackColor = true;
+            btnRemoveSupervisors.Click += btnRemoveSupervisors_Click;
+            // 
+            // btnAddSupervisor
+            // 
+            btnAddSupervisor.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            btnAddSupervisor.Location = new System.Drawing.Point(6, 511);
+            btnAddSupervisor.Name = "btnAddSupervisor";
+            btnAddSupervisor.Size = new System.Drawing.Size(155, 29);
+            btnAddSupervisor.TabIndex = 4;
+            btnAddSupervisor.Text = "Add Supervisor";
+            btnAddSupervisor.UseVisualStyleBackColor = true;
+            btnAddSupervisor.Click += btnAddSupervisor_Click;
+            // 
             // label1
             // 
             label1.AutoSize = true;
@@ -586,102 +693,6 @@ namespace SomerenUI
             btnCheckOut.UseVisualStyleBackColor = true;
             btnCheckOut.Click += BtnCheckOut_Click;
             // 
-            // pnlActivitySupervisors
-            // 
-            pnlActivitySupervisors.Controls.Add(listView2);
-            pnlActivitySupervisors.Controls.Add(listView1);
-            pnlActivitySupervisors.Controls.Add(textBox2);
-            pnlActivitySupervisors.Controls.Add(textBox1);
-            pnlActivitySupervisors.Controls.Add(textBox3);
-            pnlActivitySupervisors.Controls.Add(pictureBox2);
-            pnlActivitySupervisors.Controls.Add(listViewActivitySupervisors);
-            pnlActivitySupervisors.Controls.Add(btnRemoveSupervisors);
-            pnlActivitySupervisors.Controls.Add(btnAddSupervisor);
-            pnlActivitySupervisors.Location = new System.Drawing.Point(11, 39);
-            pnlActivitySupervisors.Name = "pnlActivitySupervisors";
-            pnlActivitySupervisors.Size = new System.Drawing.Size(1076, 635);
-            pnlActivitySupervisors.TabIndex = 3;
-            // 
-            // listView2
-            // 
-            listView2.Location = new System.Drawing.Point(465, 264);
-            listView2.Name = "listView2";
-            listView2.Size = new System.Drawing.Size(428, 190);
-            listView2.TabIndex = 11;
-            listView2.UseCompatibleStateImageBehavior = false;
-            // 
-            // listView1
-            // 
-            listView1.Location = new System.Drawing.Point(465, 21);
-            listView1.Name = "listView1";
-            listView1.Size = new System.Drawing.Size(428, 209);
-            listView1.TabIndex = 10;
-            listView1.UseCompatibleStateImageBehavior = false;
-            // 
-            // textBox2
-            // 
-            textBox2.Location = new System.Drawing.Point(248, 494);
-            textBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new System.Drawing.Size(114, 27);
-            textBox2.TabIndex = 8;
-            // 
-            // textBox1
-            // 
-            textBox1.Location = new System.Drawing.Point(9, 499);
-            textBox1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new System.Drawing.Size(141, 27);
-            textBox1.TabIndex = 7;
-            textBox1.TextChanged += textBox1_TextChanged;
-            // 
-            // textBox3
-            // 
-            textBox3.Location = new System.Drawing.Point(441, 494);
-            textBox3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new System.Drawing.Size(114, 27);
-            textBox3.TabIndex = 9;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = Properties.Resources.someren;
-            pictureBox2.Location = new System.Drawing.Point(932, -2);
-            pictureBox2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new System.Drawing.Size(136, 128);
-            pictureBox2.TabIndex = 3;
-            pictureBox2.TabStop = false;
-            // 
-            // listViewActivitySupervisors
-            // 
-            listViewActivitySupervisors.Location = new System.Drawing.Point(17, 21);
-            listViewActivitySupervisors.Name = "listViewActivitySupervisors";
-            listViewActivitySupervisors.Size = new System.Drawing.Size(345, 375);
-            listViewActivitySupervisors.TabIndex = 6;
-            listViewActivitySupervisors.UseCompatibleStateImageBehavior = false;
-            listViewActivitySupervisors.SelectedIndexChanged += listViewActivitySupervisors_SelectedIndexChanged;
-            // 
-            // btnRemoveSupervisors
-            // 
-            btnRemoveSupervisors.Location = new System.Drawing.Point(368, 576);
-            btnRemoveSupervisors.Name = "btnRemoveSupervisors";
-            btnRemoveSupervisors.Size = new System.Drawing.Size(174, 29);
-            btnRemoveSupervisors.TabIndex = 5;
-            btnRemoveSupervisors.Text = "Remove Supervisors";
-            btnRemoveSupervisors.UseVisualStyleBackColor = true;
-            btnRemoveSupervisors.Click += btnRemoveSupervisors_Click;
-            // 
-            // btnAddSupervisor
-            // 
-            btnAddSupervisor.Location = new System.Drawing.Point(120, 576);
-            btnAddSupervisor.Name = "btnAddSupervisor";
-            btnAddSupervisor.Size = new System.Drawing.Size(155, 29);
-            btnAddSupervisor.TabIndex = 4;
-            btnAddSupervisor.Text = "Add Supervisor";
-            btnAddSupervisor.UseVisualStyleBackColor = true;
-            btnAddSupervisor.Click += btnAddSupervisor_Click;
-            // 
             // SomerenUI
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -711,15 +722,15 @@ namespace SomerenUI
             pnlVat.PerformLayout();
             pnlDrinks.ResumeLayout(false);
             pnlDrinks.PerformLayout();
+            pnlActivitySupervisors.ResumeLayout(false);
+            pnlActivitySupervisors.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             pnlTeachers.ResumeLayout(false);
             pnlActivities.ResumeLayout(false);
             pnlActivities.PerformLayout();
             pnlRooms.ResumeLayout(false);
             pnlCashRegister.ResumeLayout(false);
             pnlCashRegister.PerformLayout();
-            pnlActivitySupervisors.ResumeLayout(false);
-            pnlActivitySupervisors.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -785,10 +796,11 @@ namespace SomerenUI
         private System.Windows.Forms.Button btnRemoveSupervisors;
         private System.Windows.Forms.Button btnAddSupervisor;
         private System.Windows.Forms.PictureBox pictureBox2;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ListView listView2;
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView listViewActivitySupervisor;
+        private System.Windows.Forms.ListView listViewNotSupervisor;
+
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
