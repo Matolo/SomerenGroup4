@@ -778,7 +778,14 @@ namespace SomerenUI
             ParticipantsService participantsService = new ParticipantsService();
             Activity selectedActivity = listViewActivitiesSimple.SelectedItems[0].Tag as Activity;
             Student selectedStudent = listViewParticipants.SelectedItems[0].Tag as Student;
-            participantsService.RemoveParticipant(selectedActivity, selectedStudent);
+
+
+
+            DialogResult areYouSure = MessageBox.Show("Are you sure you wish to remove this participant?", "Remove Participant", MessageBoxButtons.YesNo);
+            if (areYouSure == DialogResult.Yes)
+                participantsService.RemoveParticipant(selectedActivity, selectedStudent);
+            else
+                return;
             try
             {
                 List<Student> participants = GetParticipants(selectedActivity);

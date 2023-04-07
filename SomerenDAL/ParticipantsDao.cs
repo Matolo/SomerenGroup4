@@ -13,6 +13,7 @@ namespace SomerenDAL
     { 
         public List<Student> GetAllParticipants(Activity activity)
         {
+            //CHANGE THE QUERIES SO THERE ISN'T * ANYWHERE 
             string query = $"SELECT * FROM Participant JOIN Students ON Students.StudentId = Participant.StudentId WHERE Participant.ActivityId = {activity.ActivityId}";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
