@@ -136,12 +136,12 @@ namespace SomerenUI
             listViewTeachers.Clear();
 
             listViewTeachers.View = View.Details;
-            listViewTeachers.Columns.Add("Lecturer ID");
-            listViewTeachers.Columns.Add("First Name");
-            listViewTeachers.Columns.Add("Last Name");
-            listViewTeachers.Columns.Add("Phone Number");
+            listViewTeachers.Columns.Add("LecturerID");
+            listViewTeachers.Columns.Add("FirstName");
+            listViewTeachers.Columns.Add("LastName");
+            listViewTeachers.Columns.Add("PhoneNumber");
             listViewTeachers.Columns.Add("Age");
-            listViewTeachers.Columns.Add("Room ID");
+            listViewTeachers.Columns.Add("RoomID");
             //listViewTeachers.Columns.Add("Supervisor");
 
             foreach (Teacher teacher in teachers)
@@ -152,10 +152,10 @@ namespace SomerenUI
                 item.SubItems.Add(teacher.PhoneNumber.ToString());
                 item.SubItems.Add(teacher.Age.ToString());
                 item.SubItems.Add(teacher.RoomId.ToString());
-                //if (teacher.isSupervisor)
-                //    item.SubItems.Add("Yes");
-                //else
-                //    item.SubItems.Add("No");
+                if (teacher.isSupervisor)
+                    item.SubItems.Add("Yes");
+                else
+                    item.SubItems.Add("No");
                 item.Tag = teacher;
                 listViewTeachers.Items.Add(item);
             }
@@ -612,9 +612,9 @@ namespace SomerenUI
             listViewActivitySupervisors.Clear();
 
             listViewActivitySupervisors.View = View.Details;
-            listViewActivitySupervisors.Columns.Add("Teacher ID");
-            listViewActivitySupervisors.Columns.Add("First Name");
-            listViewActivitySupervisors.Columns.Add("Last Name");
+            listViewActivitySupervisors.Columns.Add("LecturerID");
+            listViewActivitySupervisors.Columns.Add("FirstName");
+            listViewActivitySupervisors.Columns.Add("LastName");
             listViewActivitySupervisors.Columns.Add("isSupervisor");
 
             foreach (Teacher teacher in teachers)

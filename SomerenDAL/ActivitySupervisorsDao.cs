@@ -13,7 +13,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetSupervisors(Activity selectedActivity)
         {
-            string query = "SELECT SupervisorId FROM ActivitySupervisor WHERE ActivityId = @ActivityId";
+            string query = "SELECT LecturerId FROM Supervisor WHERE ActivityId = @ActivityId";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@ActivityId", selectedActivity.ActivityId)
@@ -22,7 +22,7 @@ namespace SomerenDAL
         }
         public List<Teacher> GetNotSupervisors(Activity selectedActivity, List<Teacher> supervisors)
         {
-            string query = "SELECT LecturerId FROM Lecturer ";
+            string query = "SELECT LecturerId FROM Lecturerss ";
             ///Creating a SQL line
             if (supervisors.Capacity > 0)
             {
@@ -49,7 +49,7 @@ namespace SomerenDAL
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                supervisors.Add(GetLecturerById((int)dr["SupervisorId"]));
+                supervisors.Add(GetLecturerById((int)dr["LecturerId"]));
             }
             return supervisors;
         }
@@ -65,7 +65,7 @@ namespace SomerenDAL
         }
         public Teacher GetLecturerById(int id)
         {
-            string query = "SELECT LecturerId, [First Name], [Last Name],  IsSupervisor FROM [Lecturers] WHERE LecturerId = @LecturerId";
+            string query = "SELECT LecturerId, FirstName, LastName,  IsSupervisor FROM Lecturerss WHERE LecturerId = @LecturerId";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
                 new SqlParameter("@LecturerId", id)
@@ -74,19 +74,19 @@ namespace SomerenDAL
             foreach (DataRow dr in ExecuteSelectQuery(query, sqlParameters).Rows)
             {
                 teacher.TeacherId = (int)dr["LecturerId"];
-                teacher.FirstName = dr["First Name"].ToString();
-                teacher.LastName = dr["Last Name"].ToString();
+                teacher.FirstName = dr["FirstName"].ToString();
+                teacher.LastName = dr["LastName"].ToString();
                 teacher.isSupervisor = (bool)dr["IsSupervisor"];
             }
             return teacher;
         }
         public void AddSupervisor(Activity selectedActivity, Teacher selectedTeacher)
         {
-            string query = "INSERT INTO ActivitySupervisor (SupervisorId, ActivityId) " +
-                           "VALUES (@SupervisorId, @ActivityId)";
+            string query = "INSERT INTO Supervisor (LecturerId, ActivityId) " +
+                           "VALUES (@LecturerId, @ActivityId)";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                new SqlParameter("@SupervisorId", selectedTeacher.TeacherId),
+                new SqlParameter("@LecturerId", selectedTeacher.TeacherId),
                 new SqlParameter("@ActivityId", selectedActivity.ActivityId)
             };
             ExecuteEditQuery(query, sqlParameters);
@@ -94,10 +94,10 @@ namespace SomerenDAL
         }
         public void DeleteSupervisor(Activity selectedActivity, Teacher selectedTeacher)
         {
-            string query = "DELETE FROM ActivitySupervisor WHERE SupervisorId = @SupervisorId AND ActivityId = @ActivityId";
+            string query = "DELETE FROM Supervisor WHERE LecturerId = @LecturerId AND ActivityId = @ActivityId";
             SqlParameter[] sqlParameters = new SqlParameter[]
             {
-                 new SqlParameter("@SupervisorId", selectedTeacher.TeacherId),
+                 new SqlParameter("@LecturerId", selectedTeacher.TeacherId),
                  new SqlParameter("@ActivityId", selectedActivity.ActivityId)
 
             };

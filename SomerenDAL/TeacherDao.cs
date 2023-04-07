@@ -13,7 +13,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAllTeachers()
         {
-            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId, isSupervisor FROM Lecturers";
+            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId, isSupervisor FROM Lecturerss";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
@@ -26,11 +26,11 @@ namespace SomerenDAL
                 Teacher teacher = new Teacher()
                 {
                     TeacherId = (int)(dr["LecturerId"]),
-                    //FirstName = dr["FirstName"].ToString(),
-                    //LastName = dr["LastName"].ToString(),
-                    //PhoneNumber = (int)dr["PhoneNumber"],
-                    //Age = (int)dr["Age"],
-                    //RoomId = (int)dr["RoomId"],
+                    FirstName = dr["FirstName"].ToString(),
+                    LastName = dr["LastName"].ToString(),
+                    PhoneNumber = (int)dr["PhoneNumber"],
+                    Age = (int)dr["Age"],
+                    RoomId = (int)dr["RoomId"],
                     isSupervisor = (bool)dr["isSupervisor"]
                 };
                 teachers.Add(teacher);
@@ -39,7 +39,7 @@ namespace SomerenDAL
         }
         public void DeleteTeacher(int TeacherID)
         {
-            string query = $"DELETE FROM Teacher WHERE TeacherID = {TeacherID}";
+            string query = $"DELETE FROM Lecturerss WHERE TeacherID = {TeacherID}";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             ExecuteEditQuery(query, sqlParameters);
         }
