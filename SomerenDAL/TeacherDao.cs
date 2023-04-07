@@ -13,7 +13,7 @@ namespace SomerenDAL
     {
         public List<Teacher> GetAllTeachers()
         {
-            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId FROM Lecturer";
+            string query = "SELECT LecturerId, FirstName, LastName, PhoneNumber, Age, RoomId FROM Lecturerss";
             SqlParameter[] sqlParameters = new SqlParameter[0];
             return ReadTables(ExecuteSelectQuery(query, sqlParameters));
         }
